@@ -1,0 +1,47 @@
+<h1>{{ config.title }}</h1>
+<p *ngIf="config.features.showShortDescription && config.shortDescription">{{ config.shortDescription }}</p>
+<ul>
+  <li *ngFor="let tag of config.tags">
+    <div>{{ tag.tag }}</div>
+    <div [ngSwitch]="!!tag.href">
+        <a *ngSwitchCase="true" [href]="tag.href" target="_blank">{{ tag.label }}</a>
+        <span *ngSwitchDefault>{{ tag.label }}</span>
+      </div>
+  </li>
+</ul>
+
+<hr />
+
+<ng-container *ngIf="config.features.showChangelog && config.changelog.length > 0">
+  {{ config.changelog }}
+  <hr />
+</ng-container>
+
+<ng-container *ngIf="config.features.showLongDescription && config.longDescription">
+  <div>{{ config.longDescription }}</div>
+</ng-container>
+
+<ng-container *ngIf="config.features.showUsage">
+  <h2>Usage</h2>
+  <div>{{ config.source }}</div>
+  <ng-content></ng-content>
+</ng-container>
+
+<ng-container *ngIf="config.features.showInputs || config.features.showOutputs">
+  <h2>Properties</h2>
+
+  <ng-container *ngIf="config.features.showInputs">
+    <h3>Inputs</h3>
+    <pre>{{ config.imports | json }}</pre>
+  </ng-container>
+
+  <ng-container *ngIf="config.features.showOutputs">
+    <h3>Outputs</h3>
+    <pre>{{ config.outputs | json }}</pre>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="config.features.showExports">
+  <h2>Module Exports</h2>
+  <pre>{{ config.exports | json }}</pre>
+</ng-container>
