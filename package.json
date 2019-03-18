@@ -1,0 +1,34 @@
+{
+  "name": "@south-paw/storybook-addon-overview-angular",
+  "version": "0.0.1",
+  "description": "An addon for Storybook to document your Angular components with",
+  "keywords": [
+    "storybook",
+    "storybook-addon",
+    "addon",
+    "angular"
+  ],
+  "homepage": "https://github.com/South-Paw/storybook-addon-overview-angular",
+  "bugs": "https://github.com/South-Paw/storybook-addon-overview-angular/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Alex Gabites",
+    "email": "hello@southpaw.co.nz",
+    "url": "http://southpaw.co.nz/"
+  },
+  "files": [
+    "src"
+  ],
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/South-Paw/storybook-addon-overview-angular.git"
+  },
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
+}

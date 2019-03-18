@@ -1,0 +1,16 @@
+# project dependencies
+node_modules
+*.log
+
+# build directory
+dist/
+
+# generated folders
+coverage
+
+# system files
+.DS_Store
+Thumbs.db
+
+# vscode
+.vscode/*
