@@ -1,6 +1,6 @@
 import 'marked/lib/marked.js';
 
-import { OverviewModule } from './components/overview/overview.module';
+import { OverviewModule } from './components/components.module';
 
 const defaultConfig = {
   enabled: false,
@@ -103,7 +103,6 @@ export const withOverview = (storyFn, params) => {
     showUsage: addonConfig.showUsage,
     showInputs: addonConfig.showInputs,
     showOutputs: addonConfig.showOutputs,
-    showExports: addonConfig.showExports,
   };
 
   // Create the final config; mainly turns 'undefined' into 'false'
@@ -148,9 +147,12 @@ export const withOverview = (storyFn, params) => {
     return story; // TODO: render error
   }
 
-  overviewProps.shortDescription = componentDoc.comment.shortText;
-  overviewProps.tags = getTags(componentDoc.comment.tags);
-  overviewProps.longDescription = componentDoc.comment.text;
+  if (componentDoc.comment) {
+    overviewProps.shortDescription = componentDoc.comment.shortText;
+    overviewProps.tags = getTags(componentDoc.comment.tags);
+    overviewProps.longDescription = componentDoc.comment.text;
+  }
+
   overviewProps.inputs = getInputs(componentDoc.children);
   overviewProps.outputs = getOutputs(componentDoc.children);
   overviewProps.exports = getExports(addonConfig.typedoc);

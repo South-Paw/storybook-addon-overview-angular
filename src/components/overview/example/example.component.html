@@ -1,0 +1,8 @@
+<div class="header">
+  <span *ngIf="title" class="title">{{ title }}</span>
+  <div *ngIf="canHideSource" class="show-source" (click)="toggleSource()">{{ showSource ? 'Hide' : 'Show' }} source</div>
+</div>
+<pre [class.closed]="!showSource" class="source">{{ source }}</pre>
+<div class="example">
+  <ng-content></ng-content>
+</div>

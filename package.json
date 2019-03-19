@@ -24,9 +24,31 @@
     "type": "git",
     "url": "https://github.com/South-Paw/storybook-addon-overview-angular.git"
   },
-  "scripts": {},
-  "dependencies": {},
-  "devDependencies": {},
+  "scripts": {
+    "storybook": "yarn typedoc && start-storybook -c .storybook -p 9001",
+    "storybook:build": "yarn typedoc && build-storybook -c .storybook",
+    "typedoc": "typedoc --json typedoc.json --exclude **/*.story.* ./test"
+  },
+  "dependencies": {
+    "ngx-markdown": "^7.1.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/core": "^7.3.6",
+    "@angular/common": "^7.2.9",
+    "@angular/compiler": "^7.2.9",
+    "@angular/core": "^7.2.9",
+    "@angular/forms": "^7.2.9",
+    "@angular/platform-browser": "^7.2.9",
+    "@angular/platform-browser-dynamic": "^7.2.9",
+    "@babel/core": "^7.3.4",
+    "@storybook/angular": "^5.0.2",
+    "@types/node": "^11.11.3",
+    "babel-loader": "^8.0.5",
+    "node-sass": "^4.11.0",
+    "typedoc": "^0.14.2",
+    "typescript": "^3.3.3333",
+    "zone.js": "^0.8.29"
+  },
   "peerDependencies": {},
   "publishConfig": {
     "access": "public"

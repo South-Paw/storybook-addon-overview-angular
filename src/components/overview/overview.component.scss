@@ -1,0 +1,52 @@
+:host {
+  color: #1f1f1f;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+
+  .container {
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 960px;
+
+    hr {
+      margin: 1.5rem 0;
+      border: none;
+      height: 2px;
+      background: #ebecf0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    p.short-description {
+      margin: 0;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    ul.tags {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: 0.9rem;
+
+      li {
+        padding: 0.2rem 0;
+        display: flex;
+        flex-flow: nowrap row;
+
+        .tag-name {
+          width: 8rem;
+          text-transform: capitalize;
+          color: #6b778c;
+        }
+
+        .tag-label {
+          width: 8rem;
+        }
+      }
+    }
+  }
+}

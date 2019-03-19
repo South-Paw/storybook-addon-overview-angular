@@ -1,26 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-
-type ConfigFeatures = {
-  showShortDescription: boolean;
-  showTags: boolean;
-  showChangelog: boolean;
-  showLongDescription: boolean;
-  showUsage: boolean;
-  showInputs: boolean;
-  showOutputs: boolean;
-  showExports: boolean;
-};
-
-interface OverviewConfig {
-  features: ConfigFeatures;
-  title: string;
-  shortDescription: string;
-  tags: Array<any>;
-  longDescription: string;
-  inputs: Array<any>;
-  outputs: Array<any>;
-  exports: Array<any>;
-}
+import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'storybook-addon-overview',
@@ -30,5 +8,5 @@ interface OverviewConfig {
 })
 export class OverviewComponent {
   @Input()
-  public config: OverviewConfig;
+  public config;
 }

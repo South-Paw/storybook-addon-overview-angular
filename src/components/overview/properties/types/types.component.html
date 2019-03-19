@@ -1,0 +1,19 @@
+<span *ngIf="types.type" class="type reference">{{ types.type }}</span>
+
+<span *ngIf="types.meta" class="type meta">{{ types.meta }}</span>
+
+<ng-container *ngIf="types.types">
+  <span class="type"><</span>
+
+  <div class="types-list">
+    <ng-container *ngFor="let type of types.types">
+      <div [ngSwitch]="type.type">
+        <code *ngSwitchCase="'stringLiteral'" class="type string">"{{ type.value }}"</code>
+        <code *ngSwitchCase="'reference'" class="type reference">{{ type.type }}</code>
+        <code *ngSwitchDefault class="type">{{ type.value || type.name }}</code>,
+      </div>
+    </ng-container>
+  </div>
+
+  <span class="type">></span>
+</ng-container>

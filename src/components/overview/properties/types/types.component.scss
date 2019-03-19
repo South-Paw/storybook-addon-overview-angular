@@ -1,0 +1,38 @@
+:host {
+  margin-top: 0.5rem;
+  display: block;
+
+  .type {
+    padding: 0px 0.2em;
+    color: rgb(94, 108, 132);
+    background-color: rgb(244, 245, 247);
+    border-radius: 3px;
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: normal;
+    line-height: 1.4;
+
+    &.reference {
+      background-color: rgb(234, 230, 255);
+      color: rgb(64, 50, 148);
+    }
+
+    &.string {
+      background-color: rgb(227, 252, 239);
+      color: rgb(0, 102, 68);
+    }
+
+    &.meta {
+      margin-right: 0.3rem;
+    }
+  }
+
+  .types-list {
+    padding-left: 1.3rem;
+    font-family: monospace,monospace;
+
+    & > * {
+      margin: 4px 0;
+    }
+  }
+}

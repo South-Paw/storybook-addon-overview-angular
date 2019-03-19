@@ -1,0 +1,8 @@
+<div class="header">
+  <h2 class="name">{{ showAll ? 'All versions' : 'Latest version' }}</h2>
+  <div class="show-all" (click)="toggleChangelog()">{{ showAll ? 'Show latest version' : 'Show all versions' }}</div>
+</div>
+<ng-container [ngSwitch]="showAll">
+  <markdown *ngSwitchCase="false">{{ latestChangelog }}</markdown>
+  <markdown *ngSwitchDefault>{{ changelog }}</markdown>
+</ng-container>
