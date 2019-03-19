@@ -15,6 +15,14 @@ This is still a WIP, but you should be able to pull it down, `yarn` to install a
 
 It's very much based off [Atlaskit's component documentation](https://atlaskit.atlassian.com/packages/core/button).
 
+`/src` contains the storybook decorator and angular components for rendering.
+
+`/test` contains some sample components that are documented using the decorator.
+
+For now, check the `/.storybook/config.js` for how the decorator is hooked into the storybook.
+
+You also have to have generated a [Type Doc](https://typedoc.org/) for your Angular components and pass this via a param (again, see storybook config or the `package.json` for how it's being done within this project).
+
 ## Development
 
 Install [`Node.js`](https://nodejs.org/) and [`Yarn`](https://yarnpkg.com)
