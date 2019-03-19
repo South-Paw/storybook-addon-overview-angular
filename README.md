@@ -2,6 +2,7 @@
 
 📖 An addon for Storybook to document your Angular components with.
 
+[![Live Demo](https://img.shields.io/badge/netlify-live_demo-1e9498.svg)](https://storybook-addon-overview-angular.netlify.com/)
 [![npm](https://img.shields.io/npm/v/@south-paw/storybook-addon-overview-angular.svg)](https://www.npmjs.com/package/@south-paw/storybook-addon-overview-angular)
 [![Dependencies](https://david-dm.org/South-Paw/storybook-addon-overview-angular.svg)](https://david-dm.org/South-Paw/storybook-addon-overview-angular)
 [![Dev Dependencies](https://david-dm.org/South-Paw/storybook-addon-overview-angular/dev-status.svg)](https://david-dm.org/South-Paw/storybook-addon-overview-angular?type=dev)
