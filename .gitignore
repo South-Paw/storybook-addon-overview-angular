@@ -17,3 +17,6 @@ Thumbs.db
 
 # typedocs
 typedoc.json
+
+# generated storybook
+storybook-static

@@ -10,7 +10,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": ["node_modules/@types", "./typings.d.ts"],
     "lib": ["es2018", "dom"],
     "resolveJsonModule": true,
     "esModuleInterop": true
