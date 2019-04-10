@@ -113,6 +113,7 @@ export const withOverview = typedoc => (storyFn, params) => {
     showChangelog = true,
     showLongDescription = true,
     showUsage = true,
+    showUsageSource = false,
     showInputs = true,
     showOutputs = true,
 
@@ -133,6 +134,7 @@ export const withOverview = typedoc => (storyFn, params) => {
       showChangelog,
       showLongDescription,
       showUsage,
+      showUsageSource,
       showInputs,
       showOutputs,
     },

@@ -26,7 +26,7 @@
   </ng-container>
 
   <ng-container *ngIf="showUsage">
-    <storybook-addon-overview-example [title]="'Example'" [source]="config.source">
+    <storybook-addon-overview-example [title]="'Example'" [source]="config.source" [showSource]="showUsageSource">
       <ng-content></ng-content>
     </storybook-addon-overview-example>
   </ng-container>

@@ -7,6 +7,7 @@ interface IFeatures {
   showChangelog: boolean;
   showLongDescription: boolean;
   showUsage: boolean;
+  showUsageSource: boolean;
   showInputs: boolean;
   showOutputs: boolean;
 }
@@ -69,6 +70,10 @@ export class OverviewComponent implements OnInit {
 
   public get showUsage() {
     return this.config.features.showUsage;
+  }
+
+  public get showUsageSource() {
+    return this.config.features.showUsageSource;
   }
 
   public get showProperties() {

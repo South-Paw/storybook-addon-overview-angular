@@ -33,6 +33,7 @@ storiesOf('Example|Button', module)
         // showChangelog: false,
         // showLongDescription: false,
         // showUsage: false,
+        // showUsageSource: true,
         // showInputs: false,
         // showOutputs: false,
 

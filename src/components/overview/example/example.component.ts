@@ -7,13 +7,14 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleComponent {
-  public showSource = false;
-
   @Input()
   public title;
 
   @Input()
   public source;
+
+  @Input()
+  public showSource = false;
 
   @Input()
   public canHideSource = true;
