@@ -1,13 +1,10 @@
 <div class="container">
-  <h1 class="title">{{ config.title }}</h1>
-  <p
-    *ngIf="config.features.showShortDescription && config.shortDescription"
-    class="short-description"
-  >
+  <h1 *ngIf="renderTitle" class="title">{{ config.title }}</h1>
+  <p *ngIf="renderShortDescription" class="short-description">
     {{ config.shortDescription }}
   </p>
 
-  <ul class="tags">
+  <ul *ngIf="renderTags" class="tags">
     <li *ngFor="let tag of config.tags">
       <div class="tag-name">{{ tag.tag }}</div>
       <div [ngSwitch]="!!tag.href" class="tag-label">
@@ -17,34 +14,38 @@
     </li>
   </ul>
 
-  <hr />
+  <hr *ngIf="renderTitle || renderShortDescription || renderTags" />
 
-  <ng-container *ngIf="config.features.showChangelog && config.changelog.length > 0">
+  <ng-container *ngIf="renderChangelog">
     <storybook-addon-overview-changelog [changelog]="config.changelog"></storybook-addon-overview-changelog>
     <hr />
   </ng-container>
 
-  <ng-container *ngIf="config.features.showLongDescription && config.longDescription">
+  <ng-container *ngIf="showLongDescription">
     <markdown>{{ config.longDescription }}</markdown>
   </ng-container>
 
-  <ng-container *ngIf="config.features.showUsage">
+  <ng-container *ngIf="showUsage">
     <storybook-addon-overview-example [title]="'Example'" [source]="config.source">
       <ng-content></ng-content>
     </storybook-addon-overview-example>
   </ng-container>
 
-  <ng-container *ngIf="config.features.showInputs || config.features.showOutputs">
+  <ng-container *ngIf="showProperties">
     <h2>Properties</h2>
 
-    <ng-container *ngIf="config.features.showInputs">
+    <ng-container *ngIf="showInputs">
       <h3>Inputs</h3>
       <storybook-addon-overview-properties [props]="config.inputs" [exported]="config.exports"></storybook-addon-overview-properties>
     </ng-container>
 
-    <ng-container *ngIf="config.features.showOutputs">
+    <ng-container *ngIf="showOutputs">
       <h3>Outputs</h3>
       <storybook-addon-overview-properties [props]="config.outputs" [exported]="config.exports"></storybook-addon-overview-properties>
+    </ng-container>
+
+    <ng-container *ngIf="!showInputs && !showOutputs">
+      <p>This component doesn't have any imports out outputs 😥</p>
     </ng-container>
   </ng-container>
 </div>

@@ -15,19 +15,29 @@ storiesOf('Example|Button', module)
     }),
     {
       overview: {
+        // enable the overview for this story
         enabled: true,
+
         // required
         title: 'Button',
         filename: 'button/button.component',
         exportClass: 'ButtonComponent',
-        // optional, used if provided
+
+        // optional
         changelog,
+
+        // options
+        // showTitle: false,
         // showShortDescription: false,
         // showTags: false,
+        // showChangelog: false,
         // showLongDescription: false,
         // showUsage: false,
         // showInputs: false,
         // showOutputs: false,
+
+        // turn on debug for this story
+        isDebug: true,
       },
     },
   );

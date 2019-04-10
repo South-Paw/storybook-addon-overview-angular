@@ -75,7 +75,7 @@ const getExports = typedoc => {
   return exported;
 };
 
-export const withOverview = (storyFn, params) => {
+export const withOverview = typedoc => (storyFn, params) => {
   const story = storyFn();
 
   const addonConfig = {
@@ -89,35 +89,48 @@ export const withOverview = (storyFn, params) => {
   }
 
   // Warn if no typedoc was provided
-  if (!addonConfig.typedoc) {
+  if (!typedoc) {
     console.warn(`[Addon Overview Angular] Decorator is enabled for the story '${params.kind} => ${params.name}', but no 'typedoc' parameter was provided.`);
     return story; // TODO: render error
   }
 
-  // All configurable options
-  const features = {
-    showShortDescription: addonConfig.showShortDescription,
-    showTags: addonConfig.showTags,
-    showChangelog: addonConfig.showChangelog,
-    showLongDescription: addonConfig.showLongDescription,
-    showUsage: addonConfig.showUsage,
-    showInputs: addonConfig.showInputs,
-    showOutputs: addonConfig.showOutputs,
-  };
+  const {
+    isDebug = false,
 
-  // Create the final config; mainly turns 'undefined' into 'false'
-  const featuresConfig = {};
-  Object.keys(features).forEach(key => {
-    featuresConfig[key] = !(features[key] != null);
-  })
+    // Features of the overview component
+    showTitle = true,
+    showShortDescription = true,
+    showTags = true,
+    showChangelog = true,
+    showLongDescription = true,
+    showUsage = true,
+    showInputs = true,
+    showOutputs = true,
 
-  // Props for the `storybook-addon-overview` component
+    // Per story options
+    title = null,
+    filename = null,
+    exportClass = null,
+    changelog = null,
+  } = addonConfig;
+
+  // Properties that'll be passed to the OverviewComponent for rendering
   const overviewProps = {
-    features: featuresConfig,
-    title: addonConfig.title,
+    isDebug,
+    features: {
+      showTitle,
+      showShortDescription,
+      showTags,
+      showChangelog,
+      showLongDescription,
+      showUsage,
+      showInputs,
+      showOutputs,
+    },
+    title,
     shortDescription: null,
     tags: [],
-    changelog: addonConfig.changelog,
+    changelog,
     longDescription: null,
     source: story.template,
     inputs: [],
@@ -126,22 +139,22 @@ export const withOverview = (storyFn, params) => {
   };
 
   // Documentation for the exported module
-  const moduleDoc = addonConfig.typedoc.children.filter(child => child.name === `"${addonConfig.filename}"`)[0];
+  const moduleDoc = typedoc.children.filter(child => child.name === `"${filename}"`)[0];
 
   if (!moduleDoc) {
     console.warn(
-      `[Addon Overview Angular] filename '${addonConfig.filename}' was not found in typedoc.\n\nHere's a list of filenames in the typedoc:`,
-      addonConfig.typedoc.children.map(child => child.name.replace(/"/g, '')),
+      `[Addon Overview Angular] filename '${filename}' was not found in typedoc.\n\nHere's a list of filenames in the typedoc:`,
+      typedoc.children.map(child => child.name.replace(/"/g, '')),
     );
     return story; // TODO: render error
   }
 
   // Documentation for the actual component
-  const componentDoc = moduleDoc.children.filter(child => child.name === addonConfig.exportClass)[0];
+  const componentDoc = moduleDoc.children.filter(child => child.name === exportClass)[0];
 
   if (!componentDoc) {
     console.warn(
-      `[Addon Overview Angular] No documentation for exportClass '${addonConfig.exportClass}'\n\nHere's a list of exported classes in the typedoc for '${addonConfig.filename}':`,
+      `[Addon Overview Angular] No documentation for exportClass '${exportClass}'\n\nHere's a list of exported classes in the typedoc for '${filename}':`,
       moduleDoc.children.map(child => child.name),
     );
     return story; // TODO: render error
@@ -155,7 +168,7 @@ export const withOverview = (storyFn, params) => {
 
   overviewProps.inputs = getInputs(componentDoc.children);
   overviewProps.outputs = getOutputs(componentDoc.children);
-  overviewProps.exports = getExports(addonConfig.typedoc);
+  overviewProps.exports = getExports(typedoc);
 
   return {
     ...story,
