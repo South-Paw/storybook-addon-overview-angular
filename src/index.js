@@ -12,6 +12,16 @@ const IGNORED_TYPE_KINDS = [
   128 // Class
 ];
 
+const storyWithError = (story, errorMessage, errorObject) => {
+  console.warn(`[Addon Overview Angular] ${errorMessage}`, errorObject);
+
+  return {
+    ...story,
+    template: `<storybook-addon-overview-error [error]="___addonOverviewError"></storybook-addon-overview-error>${story.template}`,
+    props: { ___addonOverviewError: { message: errorMessage, object: errorObject }, ...story.props },
+  };
+}
+
 const getTags = tags => tags.map(tag => {
   const formattedTag = tag.tag.split('_').join(' ');
 
@@ -90,8 +100,7 @@ export const withOverview = typedoc => (storyFn, params) => {
 
   // Warn if no typedoc was provided
   if (!typedoc) {
-    console.warn(`[Addon Overview Angular] Decorator is enabled for the story '${params.kind} => ${params.name}', but no 'typedoc' parameter was provided.`);
-    return story; // TODO: render error
+    return storyWithError(story, `Decorator is enabled for the story '${params.kind} => ${params.name}', but no 'typedoc' parameter was provided.`);
   }
 
   const {
@@ -142,22 +151,22 @@ export const withOverview = typedoc => (storyFn, params) => {
   const moduleDoc = typedoc.children.filter(child => child.name === `"${filename}"`)[0];
 
   if (!moduleDoc) {
-    console.warn(
-      `[Addon Overview Angular] filename '${filename}' was not found in typedoc.\n\nHere's a list of filenames in the typedoc:`,
-      typedoc.children.map(child => child.name.replace(/"/g, '')),
+    return storyWithError(
+      story,
+      `filename '${filename}' was not found in typedoc.\n\nHere's a list of filenames in the typedoc:`,
+      { filenames: typedoc.children.map(child => child.name.replace(/"/g, '')) },
     );
-    return story; // TODO: render error
   }
 
   // Documentation for the actual component
   const componentDoc = moduleDoc.children.filter(child => child.name === exportClass)[0];
 
   if (!componentDoc) {
-    console.warn(
-      `[Addon Overview Angular] No documentation for exportClass '${exportClass}'\n\nHere's a list of exported classes in the typedoc for '${filename}':`,
-      moduleDoc.children.map(child => child.name),
+    return storyWithError(
+      story,
+      `No documentation for exportClass '${exportClass}'\n\nHere's a list of exported classes in the typedoc for '${filename}':`,
+      { exportClasses: moduleDoc.children.map(child => child.name) },
     );
-    return story; // TODO: render error
   }
 
   if (componentDoc.comment) {

@@ -1,0 +1,4 @@
+<h1 class="title">Storybook Addon Overview Error</h1>
+<h2 class="message"><strong>Message:</strong> {{ error.message }}</h2>
+<hr *ngIf="error.object" />
+<pre *ngIf="error.object" class="debug">{{ error.object | json }}</pre>
