@@ -21,8 +21,14 @@ export class PropertiesComponent {
     return false;
   }
 
-  public getRenderableTypes(propType) {
-    switch (propType.type) {
+  public getRenderableTypes(prop) {
+    let propType = prop.type;
+
+    if (!propType && prop.setSignature && prop.setSignature.length > 0) {
+      propType = prop.setSignature[0].type;
+    }
+    
+    switch (typeof propType === 'string' ? propType : propType.type) {
       case 'reference':
         return this.resolveReference(propType.id);
       case 'union':
@@ -44,15 +50,15 @@ export class PropertiesComponent {
     }
 
     if (reference.type) {
-      return this.getRenderableTypes(reference.type);
+      return this.getRenderableTypes(reference);
     }
 
     if (reference.children)
       switch (reference.kind) {
         case 4: // Enum
-          return this.getRenderableTypes({ ...reference, type: 'enum' });
+          return this.getRenderableTypes({ type: { type: 'enum', name: reference.name } });
         case 256: // Interface
-          return this.getRenderableTypes({ ...reference, type: 'interface' });
+          return this.getRenderableTypes({ type: { type: 'interface', name: reference.name } });
         default:
           return;
       }
