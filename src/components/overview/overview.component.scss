@@ -15,9 +15,24 @@
       background: #ebecf0;
     }
 
-    h1, h2, h3, h4, h5, h6 {
+    h1, h2, h3 {
       margin: 0;
       margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 1.17em;
+      font-weight: 700;
     }
 
     p.short-description {
