@@ -5,8 +5,8 @@
 
   .container {
     margin: 2rem auto;
-    width: 100%;
-    max-width: 960px;
+    padding: 0 1rem;
+    max-width: calc(960px);
 
     hr {
       margin: 1.5rem 0;
