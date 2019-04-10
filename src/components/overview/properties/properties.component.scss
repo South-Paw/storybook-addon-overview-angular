@@ -29,6 +29,12 @@
       background-color: transparent;
       white-space: pre;
     }
+
+    &.required {
+      margin-left: 0.6rem;
+      background-color: transparent;
+      color: rgb(191, 38, 0);
+    }
   }
 
   .property {

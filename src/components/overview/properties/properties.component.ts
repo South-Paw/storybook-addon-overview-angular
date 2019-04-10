@@ -13,6 +13,14 @@ export class PropertiesComponent {
   @Input()
   public props;
 
+  public getIfPropRequired(prop) {
+    if (prop.comment && prop.comment.tags && prop.comment.tags.length > 0) {
+      return !!prop.comment.tags.filter(({ tag }) => tag === 'required')[0];
+    }
+
+    return false;
+  }
+
   public getRenderableTypes(propType) {
     switch (propType.type) {
       case 'reference':

@@ -34,7 +34,11 @@ export class ButtonComponent {
   @Input()
   public isDisabled = false;
 
-  /** Content within the button */
+  /**
+   * Content within the button
+   * 
+   * @required
+   */
   @Input()
   public label: string;
 

@@ -8,6 +8,8 @@
     </ng-container>
 
     <code *ngIf="prop.defaultValue" class="type default"> = {{ prop.defaultValue }}</code>
+
+    <code *ngIf="getIfPropRequired(prop)" class="type required">required</code>
   </h4>
 
   <div *ngIf="prop.comment" class="description">
@@ -15,5 +17,5 @@
     <markdown *ngIf="prop.comment.text">{{ prop.comment.text }}</markdown>
   </div>
 
-  <storybook-addon-overview-property-types *ngIf="getRenderableTypes(prop.type)" [types]="getRenderableTypes(prop.type)"></storybook-addon-overview-property-types>
+  <storybook-addon-overview-property-types *ngIf="getRenderableTypes(prop.type); let renderable" [types]="renderable"></storybook-addon-overview-property-types>
 </div>
