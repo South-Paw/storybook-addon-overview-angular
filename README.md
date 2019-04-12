@@ -43,10 +43,13 @@ See the [live demo](https://storybook-addon-overview-angular.netlify.com/) for s
       * Refer to the [TypeDoc arguments](https://typedoc.org/guides/arguments/) for more information
 3. Check that the TypeDoc script runs okay with `yarn typedoc` or `npm run typedoc`
     * A file called `typedoc.json` should appear where your `--json` file was set to output
-4. Install this package as a dev dependency
+4. You then need to chain the typedoc generation to occur before you storybook starts or builds
+    * e.g. `scripts: { "storybook": "yarn typedoc && start-storybook" }`
+    * The TypeDoc does not auto reload/generate when a component changes, so at the moment you need to restart your storybook task to update the properties.
+5. Install this package as a dev dependency
     * `yarn add @south-paw/storybook-addon-overview-angular -D`
     * or `npm i @south-paw/storybook-addon-overview-angular -D`
-5. Add the `withOverview` addon to your `.storybook` config:
+6. Add the `withOverview` addon to your `.storybook` config:
 
 ```js
 // .storybook/config.js
@@ -68,8 +71,9 @@ const loadStories = () => req.keys().forEach(filename => req(filename));
 configure(loadStories, module);
 ```
 
-6. The addon is `disabled` for all stories and must be enabled on a per story basis (unless you enable it globally with `addParameters` in the config file)
-7. To enable the overview on a story you would do the following in a story:
+The addon is `disabled` for all stories and must be enabled on a per story basis (unless you enable it globally with `addParameters` in the config file)
+
+To enable the overview on a story you would do the following in a story:
 
 ```js
 storiesOf('Components|Button', module)
