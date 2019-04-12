@@ -3,9 +3,11 @@ import { storiesOf, moduleMetadata } from '@storybook/angular';
 import { SpinnerModule } from './index';
 import changelog from './changelog.md';
 
-storiesOf('Example|Spinner', module)
-  .addDecorator(moduleMetadata({ imports: [SpinnerModule] }))
-  .add(
+const stories = storiesOf('Examples|Spinner', module);
+
+stories.addDecorator(moduleMetadata({ imports: [SpinnerModule] }));
+
+stories.add(
     'Overview',
     () => ({
       template: `<my-spinner></my-spinner>`,
@@ -30,4 +32,3 @@ storiesOf('Example|Spinner', module)
       },
     },
   );
-  // .add('Playground', () => ({ template: `<my-spinner></my-spinner>` }));

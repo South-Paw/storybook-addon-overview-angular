@@ -3,43 +3,44 @@ import { storiesOf, moduleMetadata } from '@storybook/angular';
 import { ButtonModule } from './index';
 import changelog from './changelog.md';
 
-storiesOf('Example|Button', module)
-  .addDecorator(moduleMetadata({ imports: [ButtonModule] }))
-  .add(
-    'Overview',
-    () => ({
-      template: `<my-button [label]="label"></my-button>`,
-      props: {
-        label: 'Hello world 🌎',
-      },
-    }),
-    {
-      overview: {
-        // enable the overview for this story
-        enabled: true,
+const stories = storiesOf('Examples|Button', module);
 
-        // required
-        title: 'Button',
-        filename: 'button/button.component',
-        exportClass: 'ButtonComponent',
+stories.addDecorator(moduleMetadata({ imports: [ButtonModule] }));
 
-        // optional
-        changelog,
-
-        // options
-        // showTitle: false,
-        // showShortDescription: false,
-        // showTags: false,
-        // showChangelog: false,
-        // showLongDescription: false,
-        // showUsage: false,
-        // showUsageSource: true,
-        // showInputs: false,
-        // showOutputs: false,
-
-        // turn on debug for this story
-        isDebug: true,
-      },
+stories.add(
+  'Overview',
+  () => ({
+    template: `<my-button [label]="label"></my-button>`,
+    props: {
+      label: 'Hello world 🌎',
     },
-  );
-  // .add('Playground', () => ({ template: `<my-button [label]="'epic button test0r 👌'"></my-button>` }));
+  }),
+  {
+    overview: {
+      // enable the overview for this story
+      enabled: true,
+
+      // required
+      title: 'Button',
+      filename: 'button/button.component',
+      exportClass: 'ButtonComponent',
+
+      // optional
+      changelog,
+
+      // options
+      // showTitle: false,
+      // showShortDescription: false,
+      // showTags: false,
+      // showChangelog: false,
+      // showLongDescription: false,
+      // showUsage: false,
+      // showUsageSource: true,
+      // showInputs: false,
+      // showOutputs: false,
+
+      // turn on debug for this story
+      isDebug: true,
+    },
+  },
+);
