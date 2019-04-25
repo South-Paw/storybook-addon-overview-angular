@@ -20,7 +20,6 @@ export class PropertiesComponent {
 
     return false;
   }
-
   public getRenderableTypes(prop) {
     let propType;
 
@@ -72,4 +71,23 @@ export class PropertiesComponent {
       }
     }
   }
+
+  getMethodSignature(prop) {
+    if (prop.signatures) {
+      if(prop.signatures[0].parameters) {
+        let template = `function(`
+        const parameters = prop.signatures[0].parameters
+        parameters.forEach((param, i:number) => {
+          template += `${param.name}`
+          template += param.type ? `:${param.type.name}` : ``
+          template += (i < parameters.length-1) ? `, ` : ``
+        });
+        template += `)`
+        return template
+      }
+    } else if (prop.getSignature){
+
+    }
+  }
+
 }

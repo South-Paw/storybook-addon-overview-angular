@@ -94,7 +94,7 @@ export class ButtonComponent {
    * @returns {number}
    * @memberof ButtonComponent
    */
-  public calcSomething(input: string): number {
+  public calcSomething(input: string, secondParam?: string): number {
     return 42
   }
 

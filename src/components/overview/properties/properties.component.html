@@ -4,15 +4,10 @@
 
     <!-- TODO get parameters in `ts` -->
     <!-- This allows for method params and setter params -->
-    <ng-container *ngIf="prop.signatures">
-      <ng-container *ngIf="prop.signatures[0].parameters; let parameters">
+    <ng-container *ngIf="getMethodSignature(prop)">
         <code class="param">
-          function(<ng-container *ngFor="let param of parameters">
-            {{param.name}}
-            <ng-container *ngIf="param.type.name">:{{param.type.name}}</ng-container>
-            ,</ng-container>)
+          {{getMethodSignature(prop)}}
         </code>
-      </ng-container>
     </ng-container>
     
 
