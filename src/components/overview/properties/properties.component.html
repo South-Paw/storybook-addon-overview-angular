@@ -7,7 +7,10 @@
     <ng-container *ngIf="prop.signatures">
       <ng-container *ngIf="prop.signatures[0].parameters; let parameters">
         <code class="param">
-          function(<ng-container *ngFor="let param of parameters">{{param.name}}:{{param.type.name}}</ng-container>)
+          function(<ng-container *ngFor="let param of parameters">
+            {{param.name}}
+            <ng-container *ngIf="param.type.name">:{{param.type.name}}</ng-container>
+            ,</ng-container>)
         </code>
       </ng-container>
     </ng-container>
