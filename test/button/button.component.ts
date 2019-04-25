@@ -94,10 +94,13 @@ export class ButtonComponent {
    * @returns {number}
    * @memberof ButtonComponent
    */
-  public calcSomething(input: string, secondParam?: string): number {
+  public calcSomething(input: string, secondParam: string | number): number {
     return 42
   }
 
+  /**
+   * @ignore
+   */
   public handleClick(event: Event) {
     event.stopPropagation();
 
@@ -106,6 +109,9 @@ export class ButtonComponent {
     }
   }
 
+  /**
+   * @ignore
+   */
   nonPublicMethodWithNoTypedoc(isDisabled:boolean){
     
   }
@@ -114,6 +120,7 @@ export class ButtonComponent {
 
   }
 
+  
   private privateMethod(password:string){
 
   }

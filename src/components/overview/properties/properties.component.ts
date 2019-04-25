@@ -14,7 +14,8 @@ export class PropertiesComponent {
   public props;
 
   get publicProps(){
-    return this.props.filter(prop => prop.flags && prop.flags.isPublic === true)
+    console.log(this.props)
+    return this.props.filter(prop => prop.flags && !(prop.flags.isProtected || prop.flags.isPrivate)  === true)
   }
 
   public getIfPropRequired(prop) {
@@ -83,8 +84,9 @@ export class PropertiesComponent {
         let template = `function(`
         const parameters = prop.signatures[0].parameters
         parameters.forEach((param, i:number) => {
+          console.log(param.type)
           template += `${param.name}`
-          template += param.type ? `:${param.type.name}` : `any`
+          template += param.type.name ? `:${param.type.name}` : `: ${param.type.types.map(t => t.name).join(' | ')}`
           template += (i < parameters.length-1) ? `, ` : ``
         });
         template += `)`
