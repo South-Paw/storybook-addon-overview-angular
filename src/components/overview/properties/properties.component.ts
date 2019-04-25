@@ -22,10 +22,18 @@ export class PropertiesComponent {
   }
 
   public getRenderableTypes(prop) {
-    let propType = prop.type;
+    let propType;
 
-    if (!propType && prop.setSignature && prop.setSignature.length > 0) {
-      propType = prop.setSignature[0].type;
+    if (!prop.type) {
+      if (prop.setSignature && prop.setSignature.length > 0){
+        propType = prop.setSignature[0].type;
+      } else if (prop.getSignature && prop.getSignature.length > 0) {
+        propType = prop.getSignature[0].type;
+      } else if (prop.signatures && prop.signatures.length > 0) {
+        propType = prop.signatures[0].type || {name : 'void'};
+      }
+    } else {
+      propType = prop.type
     }
     
     switch (typeof propType === 'string' ? propType : propType.type) {
@@ -53,7 +61,7 @@ export class PropertiesComponent {
       return this.getRenderableTypes(reference);
     }
 
-    if (reference.children)
+    if (reference.children) {
       switch (reference.kind) {
         case 4: // Enum
           return this.getRenderableTypes({ type: { type: 'enum', name: reference.name } });
@@ -62,5 +70,6 @@ export class PropertiesComponent {
         default:
           return;
       }
+    }
   }
 }

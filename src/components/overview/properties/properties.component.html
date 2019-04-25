@@ -2,8 +2,17 @@
   <h4 class="title">
     <code class="type name">{{ prop.name }}</code>
 
+    <ng-container *ngIf="prop.signatures">
+      <ng-container *ngIf="prop.signatures[0].parameters; let parameters">
+        <code class="param">
+          function(<ng-container *ngFor="let param of parameters">{{param.name}}:{{param.type.name}}</ng-container>)
+        </code>
+      </ng-container>
+    </ng-container>
+    
+
     <ng-container *ngIf="prop.type" [ngSwitch]="prop.type.type">
-      <code *ngSwitchCase="'reference'" class="type reference">{{ prop.type.name || prop.type.type }}</code>
+      <code *ngSwitchCase="'reference'" class="type reference">{{ prop.type.name || prop.type.type}}</code>
       <code *ngSwitchDefault class="type">{{ prop.type.name || prop.type.type }}</code>
     </ng-container>
 
