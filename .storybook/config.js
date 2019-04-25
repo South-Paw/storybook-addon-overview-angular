@@ -1,10 +1,18 @@
-import { addDecorator, configure, moduleMetadata } from '@storybook/angular';
+import { addDecorator, addParameters, configure, moduleMetadata } from '@storybook/angular';
+
+import myTheme from './myTheme'
 
 import { withOverview, OverviewModule } from '../src';
 
 import typedoc from '../typedoc.json';
 
-addDecorator(withOverview(typedoc));
+addParameters({
+  options: {
+    theme: myTheme,
+  },
+});
+
+addDecorator(withOverview(typedoc, {theme:myTheme}));
 addDecorator(moduleMetadata({ imports: [OverviewModule] }));
 
 const req = require.context('../test', true, /\.story\.ts$/);

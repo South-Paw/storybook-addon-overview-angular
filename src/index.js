@@ -85,7 +85,7 @@ const getExports = typedoc => {
   return exported;
 };
 
-export const withOverview = typedoc => (storyFn, params) => {
+export const withOverview = (typedoc, args) => (storyFn, params) => {
   const story = storyFn();
 
   const addonConfig = {
@@ -183,8 +183,8 @@ export const withOverview = typedoc => (storyFn, params) => {
 
   return {
     ...story,
-    template: `<storybook-addon-overview [config]="___addonOverview">${story.template}</storybook-addon-overview>`,
-    props: { ___addonOverview: overviewProps, ...story.props },
+    template: `<storybook-addon-overview [theme]="___theme" [config]="___addonOverview">${story.template}</storybook-addon-overview>`,
+    props: { ___addonOverview: overviewProps, ___theme: args.theme, ...story.props },
   };
 }
 

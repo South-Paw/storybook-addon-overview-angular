@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="themeClass$" >
   <h1 *ngIf="renderTitle" class="title">{{ config.title }}</h1>
   <p *ngIf="renderShortDescription" class="short-description">
     {{ config.shortDescription }}
@@ -49,3 +49,4 @@
     </ng-container>
   </ng-container>
 </div>
+

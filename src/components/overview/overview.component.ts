@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
+import { css } from 'emotion'
 
 interface IFeatures {
   showTitle: boolean;
@@ -32,6 +33,28 @@ interface IConfig {
   exports: object[];
 }
 
+interface ITheme {
+  base: string;
+  colorPrimary: string;
+  colorSecondary: string;
+  appBg: string;
+  appContentBg: string;
+  appBorderColor: string;
+  appBorderRadius: number;
+  fontBase: string;
+  fontCode: string;
+  textColor: string;
+  textInverseColor: string;
+  barTextColor: string;
+  barSelectedColor: string;
+  barBg: string;
+  inputBg: string;
+  inputBorder: string;
+  inputTextColor: string;
+  inputBorderRadius: number;
+  brandTitle: string,
+}
+
 @Component({
   selector: 'storybook-addon-overview',
   templateUrl: './overview.component.html',
@@ -42,9 +65,13 @@ export class OverviewComponent implements OnInit {
   @Input()
   public config: IConfig;
 
+  @Input()
+  public theme: ITheme;
+
   ngOnInit() {
     if (this.config.isDebug) {
       console.info('OverviewComponent.onInit', this.config);
+      console.log(this.theme)
     }
   }
 
@@ -86,5 +113,36 @@ export class OverviewComponent implements OnInit {
 
   public get showOutputs() {
     return this.config.features.showOutputs && this.config.outputs && this.config.outputs.length > 0;
+  }
+
+  public get themeClass$() {
+    if (this.theme){
+      return css({
+        fontFamily: this.theme.fontBase,
+        color: this.theme.textColor,
+
+        'a': {
+          color: this.theme.colorPrimary
+        },
+
+        'pre, code': {
+          fontFamily: this.theme.fontCode,
+
+          '.type': {
+            color: this.theme.colorPrimary,
+
+            '&.reference': {
+              color: this.theme.colorSecondary,
+            },
+
+            '&.string' : {
+              color: this.theme.colorSecondary
+            }
+
+          }
+        }
+      })
+    }
+    else return undefined
   }
 }

@@ -44,6 +44,7 @@
     "@storybook/angular": "^5.0.6",
     "@types/node": "^11.11.4",
     "babel-loader": "^8.0.5",
+    "emotion": "^10.0.9",
     "node-sass": "^4.11.0",
     "typedoc": "^0.14.2",
     "typescript": "^3.4.3",
