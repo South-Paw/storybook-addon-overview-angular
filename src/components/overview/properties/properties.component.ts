@@ -13,6 +13,10 @@ export class PropertiesComponent {
   @Input()
   public props;
 
+  get publicProps(){
+    return this.props.filter(prop => prop.flags && prop.flags.isPublic === true)
+  }
+
   public getIfPropRequired(prop) {
     if (prop.comment && prop.comment.tags && prop.comment.tags.length > 0) {
       return !!prop.comment.tags.filter(({ tag }) => tag === 'required')[0];
@@ -73,13 +77,14 @@ export class PropertiesComponent {
   }
 
   getMethodSignature(prop) {
+    console.log(prop)
     if (prop.signatures) {
       if(prop.signatures[0].parameters) {
         let template = `function(`
         const parameters = prop.signatures[0].parameters
         parameters.forEach((param, i:number) => {
           template += `${param.name}`
-          template += param.type ? `:${param.type.name}` : ``
+          template += param.type ? `:${param.type.name}` : `any`
           template += (i < parameters.length-1) ? `, ` : ``
         });
         template += `)`

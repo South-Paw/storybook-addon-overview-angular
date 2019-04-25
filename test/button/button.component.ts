@@ -105,4 +105,16 @@ export class ButtonComponent {
       this.onClick.emit(event);
     }
   }
+
+  nonPublicMethodWithNoTypedoc(isDisabled:boolean){
+    
+  }
+
+  protected protectedMethod(id:number){
+
+  }
+
+  private privateMethod(password:string){
+
+  }
 }
