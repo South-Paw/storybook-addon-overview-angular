@@ -164,7 +164,7 @@ Whether to show the tags in the overview component.
 
 These are generated from the components documentation block and support links.
 
-```
+```js
 /**
  * Short description about the component.
  *
