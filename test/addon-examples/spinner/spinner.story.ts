@@ -3,7 +3,7 @@ import { storiesOf, moduleMetadata } from '@storybook/angular';
 import { SpinnerModule } from './index';
 import changelog from './changelog.md';
 
-const stories = storiesOf('Examples|Spinner', module);
+const stories = storiesOf('Component Examples|Spinner', module);
 
 stories.addDecorator(moduleMetadata({ imports: [SpinnerModule] }));
 
