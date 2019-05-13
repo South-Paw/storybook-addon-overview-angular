@@ -173,8 +173,11 @@ export const withOverview = typedoc => (storyFn, params) => {
 
   if (componentDoc.comment) {
     overviewProps.shortDescription = componentDoc.comment.shortText;
-    overviewProps.tags = getTags(componentDoc.comment.tags);
     overviewProps.longDescription = componentDoc.comment.text;
+
+    if (componentDoc.comment.tags && componentDoc.comment.tags.length > 0) {
+      overviewProps.tags = getTags(componentDoc.comment.tags);
+    }
   }
 
   overviewProps.inputs = getInputs(componentDoc.children);
