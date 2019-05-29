@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
 import { css } from 'emotion'
+import chroma from 'chroma-js'
 
 interface IFeatures {
   showTitle: boolean;
@@ -53,6 +54,16 @@ interface ITheme {
   inputTextColor: string;
   inputBorderRadius: number;
   brandTitle: string,
+  // 
+  propRequiredColor: string,
+  propNameColor: string,
+  propTypeColor: string,
+  propDefaultValueColor: string,
+  propReferenceColor: string,
+  propStringColor: string,
+  propNumberColor: string,
+  propBooleanColor: string,
+  propArrayColor: string,
 }
 
 @Component({
@@ -118,31 +129,104 @@ export class OverviewComponent implements OnInit {
   public get themeClass$() {
     if (this.theme){
       return css({
-        fontFamily: this.theme.fontBase,
-        color: this.theme.textColor,
+        '&.container': {
+          fontFamily: this.theme.fontBase,
+          color: this.theme.textColor,
 
-        'a': {
-          color: this.theme.colorPrimary
-        },
+          'a': {
+            color: this.theme.colorPrimary
+          },
 
-        'pre, code': {
-          fontFamily: this.theme.fontCode,
+          'storybook-addon-overview-properties, storybook-addon-overview-property-types': {
+            'pre, code': {
+              fontFamily: this.theme.fontCode,
 
-          '.type': {
-            color: this.theme.colorPrimary,
+              '&.type': {
+                color: this.propTypeColor,
+                backgroundColor: this.makeLightColor(this.propTypeColor),
 
-            '&.reference': {
-              color: this.theme.colorSecondary,
-            },
+                '&.required': {
+                  color: this.propRequiredColor,
+                  fontWeight: 'bold',
+                  backgroundColor: 'transparent'
+                },
 
-            '&.string' : {
-              color: this.theme.colorSecondary
+                '&.name': {
+                  color: this.propNameColor,
+                  backgroundColor: this.makeLightColor(this.propNameColor),
+                },
+
+                '&.reference': {
+                  color: this.propReferenceColor,
+                  backgroundColor: this.makeLightColor(this.propReferenceColor),
+                },
+
+                '&.string': {
+                  color: this.propStringColor,
+                  backgroundColor: this.makeLightColor(this.propStringColor),
+                },
+
+                '&.equal-sign': {
+                  color: this.propTypeColor,
+                  backgroundColor: 'transparent'
+                },
+                
+                '&.default': {
+                  color: this.propDefaultValueColor,
+                  backgroundColor: 'transparent',
+
+                  '&.stringLiteral': {
+                    color: this.propStringColor,
+                  },
+                  '&.number': {
+                    color: this.propNumberColor,
+                  },
+                  '&.boolean': {
+                    color: this.propBooleanColor,
+                  },
+                  '&.Array': {
+                    color: this.propArrayColor,
+                  },
+                },
+              }
             }
-
           }
         }
       })
     }
-    else return undefined
+  }
+
+  private makeLightColor(color: string): string {
+    if (!!color){
+      return chroma.mix('white', color, 0.10).hex()
+      // return chroma(color).alpha(0.15).css()
+    }
+  }
+  private get propRequiredColor(): string {
+    return this.theme.propRequiredColor || null
+  }
+  private get propNameColor(): string {
+    return this.theme.propNameColor || null
+  }
+  private get propTypeColor(): string {
+    return this.theme.propTypeColor || null
+  }
+  private get propDefaultValueColor(): string {
+    return this.theme.propDefaultValueColor || this.theme.propTypeColor || null
+  }
+  private get propReferenceColor(): string {
+    return this.theme.propReferenceColor || this.theme.propTypeColor || null
+  }
+  private get propStringColor(): string {
+    return this.theme.propStringColor ||this.propDefaultValueColor || null
+  }
+  private get propNumberColor(): string {
+    return this.theme.propNumberColor || this.propDefaultValueColor || null
+  }
+  private get propBooleanColor(): string {
+    return this.theme.propBooleanColor || this.propDefaultValueColor || null
+  }
+  private get propArrayColor(): string {
+    return this.theme.propArrayColor || this.propDefaultValueColor || null
   }
 }

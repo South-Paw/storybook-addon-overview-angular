@@ -13,12 +13,39 @@ export class PropertiesComponent {
   @Input()
   public props;
 
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    console.log(this.props)
+  }
+
   public getIfPropRequired(prop) {
     if (prop.comment && prop.comment.tags && prop.comment.tags.length > 0) {
       return !!prop.comment.tags.filter(({ tag }) => tag === 'required')[0];
     }
 
     return false;
+  }
+
+  getDefaultValueType(prop){
+    if(prop.type.name) {
+      return prop.type.name
+    }
+    else {
+      const propType = prop.type
+      switch (typeof propType === 'string' ? propType : propType.type) {
+        case 'reference':
+          return 'reference'
+        case 'union':
+          return prop.type.types[0].type
+        case 'enum':
+          return propType.name
+        case 'interface':
+          return propType.name
+        default:
+          break;
+      }
+    }
   }
 
   public getRenderableTypes(prop) {

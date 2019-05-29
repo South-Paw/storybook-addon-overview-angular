@@ -3,33 +3,43 @@ import { create } from '@storybook/theming';
 export default create({
   base: 'light',
 
-  colorPrimary: '#30C6F3',
+  colorPrimary: '#00BAFE',
   colorSecondary: '#F14052',
 
-  // UI
-  appBg: 'white',
+  // // UI
+  appBg: '#fafafa',
   appContentBg: '#fafafa',
   appBorderColor: '#cccccc',
-  appBorderRadius: 4,
+  // appBorderRadius: 4,
 
-  // Typography
+  // // Typography
   fontBase: 'Roboto, serif',
-  fontCode: '"Roboto Mono", Courrier, mono',
+  fontCode: '"Roboto Mono", Courier, mono',
 
-  // Text colors
+  // // Text colors
   textColor: '#F14052',
-  textInverseColor: '#white',
+  textInverseColor: 'white',
 
-  // Toolbar default and active colors
+  // // Toolbar default and active colors 
   barTextColor: 'white',
-  barSelectedColor: '#30C6F3',
+  barSelectedColor: '#00BAFE',
   barBg: '#F14052',
 
-  // Form colors
-  inputBg: 'white',
-  inputBorder: '#F14052',
-  inputTextColor: 'black',
-  inputBorderRadius: 4,
+  // // Form colors
+  // inputBg: 'white',
+  // inputBorder: '#F14052',
+  // inputTextColor: 'black',
+  // inputBorderRadius: 4,
 
-  brandTitle: 'My custom storybook',
+  brandTitle: 'My Themed Storybook',
+
+  propRequiredColor: '#FF0000',
+  propNameColor: '#A101F9',
+  propTypeColor: '#2879F4',
+  propDefaultValueColor: 'orange',
+  // propReferenceColor: '#00DCD6',
+  propStringColor: '#00D545',
+  // propNumberColor: '#00BAFE',
+  // propBooleanColor: '#00DCD6',
+  // propArrayColor: '#FF00C1'
 });

@@ -6,8 +6,9 @@
       <code *ngSwitchCase="'reference'" class="type reference">{{ prop.type.name || prop.type.type }}</code>
       <code *ngSwitchDefault class="type">{{ prop.type.name || prop.type.type }}</code>
     </ng-container>
-
-    <code *ngIf="prop.defaultValue" class="type default"> = {{ prop.defaultValue.trim() }}</code>
+    
+    <code *ngIf="prop.defaultValue" class="type equal-sign">=</code>
+    <code *ngIf="prop.defaultValue" class="type default" [ngClass]="getDefaultValueType(prop)">{{ prop.defaultValue.trim() }}</code>
 
     <code *ngIf="getIfPropRequired(prop)" class="type required">required</code>
   </h4>

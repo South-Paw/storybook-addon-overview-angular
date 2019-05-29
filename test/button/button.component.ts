@@ -42,6 +42,36 @@ export class ButtonComponent {
   @Input()
   public label: string;
 
+  /**
+   *
+   *
+   * @type {number}
+   * A placeholder prop of type number
+   */
+  @Input()
+  public counter: number = 42
+
+  /**
+   *
+   *
+   * @type {Array<any>}
+   * @memberof ButtonComponent
+   */
+  @Input()
+  public array: Array<any> = ['this', 'is', 'a', 'test']
+
+  /**
+   *
+   *
+   * @type {Object}
+   * @memberof ButtonComponent
+   */
+  @Input()
+  public someObject: Object = {
+    attributeOne: 4,
+    attributeTwo: 'test'
+  }
+
   /** Size of the button */
   @Input()
   public size: 'small' | 'medium' | 'large' | 'xlarge' = 'medium';

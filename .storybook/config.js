@@ -12,7 +12,7 @@ addParameters({
   },
 });
 
-addDecorator(withOverview(typedoc, { theme:myTheme }));
+addDecorator(withOverview(typedoc, { theme: myTheme }));
 addDecorator(moduleMetadata({ imports: [OverviewModule] }));
 
 const req = require.context('../test', true, /\.story\.ts$/);
