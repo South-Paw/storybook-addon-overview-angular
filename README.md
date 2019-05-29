@@ -245,3 +245,56 @@ yarn typedoc
 * `src/` contains all the addon's code and rendering components.
 * `test/` contains sample storybook and components for the generated live site.
 
+## Theming
+Overview is themable, and piggybacks off the [Storybook Theming API](https://storybook.js.org/docs/configurations/theming/#docs-content).
+
+To add a theme to Overview, pass in your Storybook theme object when you add the Overview decorator:
+```js
+import myTheme from './myTheme.js'
+...
+// Storybook theme declaration
+addParameters({ options: { theme: myTheme}});
+// Overview theme declaration
+addDecorator(withOverview(typedoc, { theme: myTheme }));
+```
+
+Additional theme parameters can be added to your theme object to have more control over the documentation colors.
+
+`propRequiredColor`: **string**
+
+The color of the `required` label
+
+`propNameColor`: **string** 
+
+The color of prop vaiable names
+
+`propTypeColor`: **string** 
+
+The color of prop data types
+
+
+`propDefaultValueColor`: **string** 
+
+The color of a prop's default value (defaults to `propTypeColor` if unspecified)
+
+`propReferenceColor`: **string** 
+
+The color of class reverences (defaults to `propTypeColor` if unspecified)
+
+`propStringColor`: **string* 
+
+The color of basic strings, and string-type props (defaults to `propDefaultValueColor` if unspecified)
+
+`propNumberColor`: **string**
+
+The color of number-type props (defaults to `propDefaultValueColor` if unspecified)
+
+`propBooleanColor`: **string**
+
+The color of Boolean-type props (defaults to `propDefaultValueColor` if unspecified)
+
+`propArrayColor`: **string**
+
+The color of Array-type props (defaults to `propDefaultValueColor` if unspecified)
+  
+
