@@ -93,6 +93,8 @@ const getAccessors = componentDocChildren => {
   if (!componentDocChildren) {
     return [];
   }
+
+  // TODO inputs and outputs should not be includes as 'accessors'
   return componentDocChildren
     .filter(child => {
       if (child.getSignature) {
