@@ -13,9 +13,8 @@ export class PropertiesComponent {
   @Input()
   public props;
 
-  get publicProps(){
-    console.log(this.props)
-    return this.props.filter(prop => prop.flags && !(prop.flags.isProtected || prop.flags.isPrivate)  === true)
+  public get publicProps() {
+    return this.props.filter(prop => prop.flags && !(prop.flags.isProtected || prop.flags.isPrivate) === true);
   }
 
   public getIfPropRequired(prop) {
@@ -25,21 +24,22 @@ export class PropertiesComponent {
 
     return false;
   }
+
   public getRenderableTypes(prop) {
-    let propType;
+    let propType = null;
 
     if (!prop.type) {
-      if (prop.setSignature && prop.setSignature.length > 0){
+      if (prop.setSignature && prop.setSignature.length > 0) {
         propType = prop.setSignature[0].type;
       } else if (prop.getSignature && prop.getSignature.length > 0) {
         propType = prop.getSignature[0].type;
       } else if (prop.signatures && prop.signatures.length > 0) {
-        propType = prop.signatures[0].type || {name : 'void'};
+        propType = prop.signatures[0].type || { name: 'void' };
       }
     } else {
-      propType = prop.type
+      propType = prop.type;
     }
-    
+
     switch (typeof propType === 'string' ? propType : propType.type) {
       case 'reference':
         return this.resolveReference(propType.id);

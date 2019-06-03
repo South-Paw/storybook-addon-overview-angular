@@ -11,7 +11,14 @@ import { OverviewComponent } from './overview/overview.component';
 
 @NgModule({
   imports: [CommonModule, MarkdownModule.forRoot()],
-  declarations: [ErrorComponent, ChangelogComponent, ExampleComponent, PropertiesComponent, TypesComponent, OverviewComponent],
+  declarations: [
+    ErrorComponent,
+    ChangelogComponent,
+    ExampleComponent,
+    PropertiesComponent,
+    TypesComponent,
+    OverviewComponent,
+  ],
   exports: [ErrorComponent, OverviewComponent],
 })
 export class OverviewModule {}

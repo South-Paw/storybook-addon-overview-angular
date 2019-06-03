@@ -7,7 +7,7 @@
     </ng-container>
 
     <ng-container *ngIf="prop.type" [ngSwitch]="prop.type.type">
-      <code *ngSwitchCase="'reference'" class="type reference">{{ prop.type.name || prop.type.type}}</code>
+      <code *ngSwitchCase="'reference'" class="type reference">{{ prop.type.name || prop.type.type }}</code>
       <code *ngSwitchDefault class="type">{{ prop.type.name || prop.type.type }}</code>
     </ng-container>
 
@@ -21,5 +21,8 @@
     <markdown *ngIf="prop.comment.text">{{ prop.comment.text }}</markdown>
   </div>
 
-  <storybook-addon-overview-property-types *ngIf="getRenderableTypes(prop); let renderable" [types]="renderable"></storybook-addon-overview-property-types>
+  <storybook-addon-overview-property-types
+    *ngIf="getRenderableTypes(prop); let renderable"
+    [types]="renderable"
+  ></storybook-addon-overview-property-types>
 </div>

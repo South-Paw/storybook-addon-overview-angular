@@ -36,5 +36,5 @@ export class ChangelogComponent {
         }
       })
       .filter(lineNo => lineNo != null);
-  }
+  };
 }

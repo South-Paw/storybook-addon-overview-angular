@@ -19,5 +19,5 @@ export class ExampleComponent {
   @Input()
   public canHideSource = true;
 
-  public toggleSource = () => this.showSource = !this.showSource;
+  public toggleSource = () => (this.showSource = !this.showSource);
 }
