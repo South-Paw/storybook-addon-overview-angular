@@ -30,7 +30,7 @@
     "typedoc": "typedoc --json typedoc.json --exclude **/*.story.* ./test"
   },
   "dependencies": {
-    "ngx-markdown": "^7.1.5"
+    "ngx-markdown": "^8.0.2"
   },
   "devDependencies": {
     "@angular-devkit/core": "^7.3.9",
@@ -40,13 +40,13 @@
     "@angular/forms": "^7.2.15",
     "@angular/platform-browser": "^7.2.15",
     "@angular/platform-browser-dynamic": "^7.2.15",
-    "@babel/core": "^7.4.4",
+    "@babel/core": "^7.4.5",
     "@storybook/angular": "^5.0.11",
-    "@types/node": "^11.13.10",
+    "@types/node": "^12.0.4",
     "babel-loader": "^8.0.6",
     "node-sass": "^4.12.0",
     "typedoc": "^0.14.2",
-    "typescript": "^3.4.5",
+    "typescript": "^3.5.1",
     "zone.js": "^0.9.1"
   },
   "peerDependencies": {},
