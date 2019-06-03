@@ -13,6 +13,11 @@ export class PropertiesComponent {
   @Input()
   public props;
 
+  get publicProps(){
+    console.log(this.props)
+    return this.props.filter(prop => prop.flags && !(prop.flags.isProtected || prop.flags.isPrivate)  === true)
+  }
+
   public getIfPropRequired(prop) {
     if (prop.comment && prop.comment.tags && prop.comment.tags.length > 0) {
       return !!prop.comment.tags.filter(({ tag }) => tag === 'required')[0];
@@ -20,12 +25,19 @@ export class PropertiesComponent {
 
     return false;
   }
-
   public getRenderableTypes(prop) {
-    let propType = prop.type;
+    let propType;
 
-    if (!propType && prop.setSignature && prop.setSignature.length > 0) {
-      propType = prop.setSignature[0].type;
+    if (!prop.type) {
+      if (prop.setSignature && prop.setSignature.length > 0){
+        propType = prop.setSignature[0].type;
+      } else if (prop.getSignature && prop.getSignature.length > 0) {
+        propType = prop.getSignature[0].type;
+      } else if (prop.signatures && prop.signatures.length > 0) {
+        propType = prop.signatures[0].type || {name : 'void'};
+      }
+    } else {
+      propType = prop.type
     }
     
     switch (typeof propType === 'string' ? propType : propType.type) {
@@ -53,7 +65,7 @@ export class PropertiesComponent {
       return this.getRenderableTypes(reference);
     }
 
-    if (reference.children)
+    if (reference.children) {
       switch (reference.kind) {
         case 4: // Enum
           return this.getRenderableTypes({ type: { type: 'enum', name: reference.name } });
@@ -62,5 +74,27 @@ export class PropertiesComponent {
         default:
           return;
       }
+    }
   }
+
+  getMethodSignature(prop) {
+    console.log(prop)
+    if (prop.signatures) {
+      if(prop.signatures[0].parameters) {
+        let template = `function(`
+        const parameters = prop.signatures[0].parameters
+        parameters.forEach((param, i:number) => {
+          console.log(param.type)
+          template += `${param.name}`
+          template += param.type.name ? `:${param.type.name}` : `: ${param.type.types.map(t => t.name).join(' | ')}`
+          template += (i < parameters.length-1) ? `, ` : ``
+        });
+        template += `)`
+        return template
+      }
+    } else if (prop.getSignature){
+
+    }
+  }
+
 }

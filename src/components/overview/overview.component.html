@@ -44,6 +44,24 @@
       <storybook-addon-overview-properties [props]="config.outputs" [exported]="config.exports"></storybook-addon-overview-properties>
     </ng-container>
 
+    <ng-container *ngIf="showMethods">
+      <h3>Methods</h3>
+      <storybook-addon-overview-properties [props]="config.methods" [exported]="config.exports">
+      </storybook-addon-overview-properties>
+    </ng-container>
+
+    <ng-container *ngIf="showAccessors">
+      <h3>Accessors</h3>
+      <storybook-addon-overview-properties [props]="config.accessors" [exported]="config.exports">
+      </storybook-addon-overview-properties>
+    </ng-container>
+
+    <ng-container *ngIf="showInternalProps">
+      <h3>Internal</h3>
+      <storybook-addon-overview-properties [props]="config.internalProps" [exported]="config.exports">
+      </storybook-addon-overview-properties>
+    </ng-container>
+
     <ng-container *ngIf="!showInputs && !showOutputs">
       <p>This component doesn't have any inputs or outputs 😥</p>
     </ng-container>

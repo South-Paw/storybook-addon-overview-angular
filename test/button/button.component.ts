@@ -54,11 +54,74 @@ export class ButtonComponent {
   @Output()
   public onClick = new EventEmitter<Event>();
 
+  /**
+   *
+   *
+   * @readonly
+   * @type {string}
+   * @memberof ButtonComponent
+   */
+  get classNameGetter(): string {
+    return `btn btn-${this.size} ${this.isDisabled ? 'btn-disabled' : ''}`
+  }
+
+
+  /**
+   *
+   * sets the value of `someSetter`
+   * 
+   * @memberof ButtonComponent
+   */
+  set someSetter(newVal: string) {
+    console.log(newVal)
+  }
+
+
+  /**
+   *
+   * Some internal property that is exposed to the parent
+   * 
+   * @type {string}
+   * @memberof ButtonComponent
+   */
+  public someInternalProperty:string = 'Hello World'
+
+  /**
+   *
+   * Some internal method that calculates something
+   * 
+   * @param {string} input Comment about `input`
+   * @returns {number}
+   * @memberof ButtonComponent
+   */
+  public calcSomething(input: string, secondParam: string | number): number {
+    return 42
+  }
+
+  /**
+   * @ignore
+   */
   public handleClick(event: Event) {
     event.stopPropagation();
 
     if (!this.isDisabled) {
       this.onClick.emit(event);
     }
+  }
+
+  /**
+   * @ignore
+   */
+  nonPublicMethodWithNoTypedoc(isDisabled:boolean){
+    
+  }
+
+  protected protectedMethod(id:number){
+
+  }
+
+  
+  private privateMethod(password:string){
+
   }
 }

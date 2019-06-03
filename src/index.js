@@ -59,13 +59,62 @@ const getOutputs = componentDocChildren => {
   if (!componentDocChildren) {
     return [];
   }
-
   return componentDocChildren.filter(child => {
     if (child.decorators) {
+      console.log(child)
       return child.decorators.filter(decorator => decorator.name === 'Output').length;
     }
 
     return false;
+  });
+};
+
+const getInternalProps = componentDocChildren => {
+  if (!componentDocChildren) {
+    return [];
+  }
+  return componentDocChildren.filter(child => {
+    if (child.kind && !child.decorators) {
+      return child.kind === 1024;
+    }
+    return false;
+  });
+};
+
+const getMethods = componentDocChildren => {
+  if (!componentDocChildren) {
+    return [];
+  }
+  return componentDocChildren.filter(child => {
+    if (child.kind ) {
+      return child.kind === 2048; // or `kindString` === 'Method'
+    }
+    return false;
+  }).map(child => {
+    console.log(child)
+    return {
+      ...child,
+      type: child.signatures[0].type || { name: 'void' }
+    }
+  });
+}
+
+const getAccessors = componentDocChildren => {
+  if (!componentDocChildren) {
+    return [];
+  }
+  return componentDocChildren.filter(child => {
+    if (child.getSignature) {
+      return child.getSignature.length > 0;
+    } else if (child.setSignature) {
+      return child.setSignature.length > 0
+    }
+    return false;
+  }).map(child => {
+    return {
+      ...child,
+      type: child.getSignature ? child.getSignature[0].type : child.setSignature[0].type
+    }
   });
 };
 
@@ -116,6 +165,9 @@ export const withOverview = typedoc => (storyFn, params) => {
     showUsageSource = false,
     showInputs = true,
     showOutputs = true,
+    showAccessors = true,
+    showMethods = true,
+    showInternalProps = true,
 
     // Per story options
     title = null,
@@ -137,6 +189,9 @@ export const withOverview = typedoc => (storyFn, params) => {
       showUsageSource,
       showInputs,
       showOutputs,
+      showAccessors,
+      showMethods,
+      showInternalProps
     },
     title,
     shortDescription: null,
@@ -147,6 +202,9 @@ export const withOverview = typedoc => (storyFn, params) => {
     inputs: [],
     outputs: [],
     exports: [],
+    accessors: [],
+    methods: [],
+    internalProps: []
   };
 
   // Documentation for the exported module
@@ -183,6 +241,9 @@ export const withOverview = typedoc => (storyFn, params) => {
   overviewProps.inputs = getInputs(componentDoc.children);
   overviewProps.outputs = getOutputs(componentDoc.children);
   overviewProps.exports = getExports(typedoc);
+  overviewProps.accessors = getAccessors(componentDoc.children);
+  overviewProps.methods = getMethods(componentDoc.children);
+  overviewProps.internalProps = getInternalProps(componentDoc.children);
 
   return {
     ...story,
