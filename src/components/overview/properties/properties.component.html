@@ -2,14 +2,9 @@
   <h4 class="title">
     <code class="type name">{{ prop.name }}</code>
 
-    <!-- TODO get parameters in `ts` -->
-    <!-- This allows for method params and setter params -->
     <ng-container *ngIf="getMethodSignature(prop)">
-        <code class="param">
-          {{getMethodSignature(prop)}}
-        </code>
+      <code class="type signature">{{ getMethodSignature(prop) }}</code>
     </ng-container>
-    
 
     <ng-container *ngIf="prop.type" [ngSwitch]="prop.type.type">
       <code *ngSwitchCase="'reference'" class="type reference">{{ prop.type.name || prop.type.type}}</code>

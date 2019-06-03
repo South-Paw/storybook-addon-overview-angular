@@ -36,6 +36,12 @@
         background-color: rgb(234, 230, 255);
         color: rgb(64, 50, 148);
       }
+
+      &.signature {
+        margin-right: 0.6rem;
+        color: rgb(0, 141, 166);
+        background: rgb(230, 252, 255);
+      }
   
       &.default {
         background-color: transparent;

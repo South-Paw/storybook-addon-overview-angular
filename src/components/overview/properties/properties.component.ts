@@ -77,24 +77,26 @@ export class PropertiesComponent {
     }
   }
 
-  getMethodSignature(prop) {
-    console.log(prop)
+  public getMethodSignature(prop) {
     if (prop.signatures) {
-      if(prop.signatures[0].parameters) {
-        let template = `function(`
-        const parameters = prop.signatures[0].parameters
-        parameters.forEach((param, i:number) => {
-          console.log(param.type)
-          template += `${param.name}`
-          template += param.type.name ? `:${param.type.name}` : `: ${param.type.types.map(t => t.name).join(' | ')}`
-          template += (i < parameters.length-1) ? `, ` : ``
-        });
-        template += `)`
-        return template
-      }
-    } else if (prop.getSignature){
+      if (prop.signatures[0].parameters) {
+        let template = `function(`;
 
+        const parameters = prop.signatures[0].parameters;
+
+        parameters.forEach((param, i: number) => {
+          template += `${param.name}`;
+          template += param.type.name ? `:${param.type.name}` : `: ${param.type.types.map(t => t.name).join(' | ')}`;
+          template += i < parameters.length - 1 ? `, ` : ``;
+        });
+
+        template += `)`;
+
+        return template;
+      }
+    } else if (prop.getSignature) {
+      // TOOD
+      // console.log('prop.setSignature', prop);
     }
   }
-
 }

@@ -12,7 +12,7 @@ interface IFeatures {
   showOutputs: boolean;
   showMethods: boolean;
   showAccessors: boolean;
-  showInternalProps: boolean
+  showInternalProps: boolean;
 }
 
 interface ITag {
@@ -33,10 +33,9 @@ interface IConfig {
   inputs: object[];
   outputs: object[];
   exports: object[];
-
-  accessors: object[],
-  methods: object[],
-  internalProps: object[]
+  methods: object[];
+  accessors: object[];
+  internalProps: object[];
 }
 
 @Component({
@@ -93,6 +92,10 @@ export class OverviewComponent implements OnInit {
 
   public get showOutputs() {
     return this.config.features.showOutputs && this.config.outputs && this.config.outputs.length > 0;
+  }
+
+  public get showClassProperties() {
+    return this.config.features.showMethods || this.config.features.showAccessors || this.config.features.showInternalProps;
   }
 
   public get showMethods() {

@@ -32,38 +32,58 @@
   </ng-container>
 
   <ng-container *ngIf="showProperties">
-    <h2>Properties</h2>
+    <h2>Component Properties</h2>
 
     <ng-container *ngIf="showInputs">
       <h3>Inputs</h3>
-      <storybook-addon-overview-properties [props]="config.inputs" [exported]="config.exports"></storybook-addon-overview-properties>
+      <storybook-addon-overview-properties
+        [props]="config.inputs"
+        [exported]="config.exports"
+      ></storybook-addon-overview-properties>
     </ng-container>
 
     <ng-container *ngIf="showOutputs">
       <h3>Outputs</h3>
-      <storybook-addon-overview-properties [props]="config.outputs" [exported]="config.exports"></storybook-addon-overview-properties>
-    </ng-container>
-
-    <ng-container *ngIf="showMethods">
-      <h3>Methods</h3>
-      <storybook-addon-overview-properties [props]="config.methods" [exported]="config.exports">
-      </storybook-addon-overview-properties>
-    </ng-container>
-
-    <ng-container *ngIf="showAccessors">
-      <h3>Accessors</h3>
-      <storybook-addon-overview-properties [props]="config.accessors" [exported]="config.exports">
-      </storybook-addon-overview-properties>
-    </ng-container>
-
-    <ng-container *ngIf="showInternalProps">
-      <h3>Internal</h3>
-      <storybook-addon-overview-properties [props]="config.internalProps" [exported]="config.exports">
-      </storybook-addon-overview-properties>
+      <storybook-addon-overview-properties
+        [props]="config.outputs"
+        [exported]="config.exports"
+      ></storybook-addon-overview-properties>
     </ng-container>
 
     <ng-container *ngIf="!showInputs && !showOutputs">
       <p>This component doesn't have any inputs or outputs 😥</p>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="showClassProperties">
+    <h2>Class Properties</h2>
+
+    <ng-container *ngIf="showMethods">
+      <h3>Methods</h3>
+      <storybook-addon-overview-properties
+        [props]="config.methods"
+        [exported]="config.exports"
+      ></storybook-addon-overview-properties>
+    </ng-container>
+
+    <ng-container *ngIf="showAccessors">
+      <h3>Accessors</h3>
+      <storybook-addon-overview-properties
+        [props]="config.accessors"
+        [exported]="config.exports"
+      ></storybook-addon-overview-properties>
+    </ng-container>
+
+    <ng-container *ngIf="showInternalProps">
+      <h3>Internal</h3>
+      <storybook-addon-overview-properties
+        [props]="config.internalProps"
+        [exported]="config.exports"
+      ></storybook-addon-overview-properties>
+    </ng-container>
+
+    <ng-container *ngIf="!showMethods && !showAccessors && !showInternalProps">
+      <p>This component doesn't have any properties to show 😥</p>
     </ng-container>
   </ng-container>
 </div>
