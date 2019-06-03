@@ -74,6 +74,19 @@ export class ButtonComponent {
     }
   }
 
+  private _inputValue = 'some value';
+
+  /** Setter for `inputValue` that is also an `@Input`. */
+  @Input()
+  public set inputValue(value: string) {
+    this._inputValue = value;
+  }
+
+  /** Getter for `inputValue`. */
+  public get inputValue() {
+    return this._inputValue;
+  }
+
   /**
    * Returns all the CSS classes for the button.
    *
