@@ -58,10 +58,22 @@ export class PropertiesComponent {
     return false;
   }
 
-  public getMethodComments(prop) {
-    if (prop.signatures && prop.signatures.length > 0 && prop.signatures[0].comment) {
+  public getComment(prop) {
+    if (!prop.comment && prop.signatures && prop.signatures.length > 0 && prop.signatures[0].comment) {
       return prop.signatures[0].comment;
     }
+
+    if (
+      prop.decorators &&
+      prop.decorators.filter(decorator => decorator.name === 'Input').length === 1 &&
+      prop.setSignature &&
+      prop.setSignature.length > 0 &&
+      prop.setSignature[0].comment
+    ) {
+      return prop.setSignature[0].comment;
+    }
+
+    return prop.comment;
   }
 
   public getRenderableTypes(prop) {
