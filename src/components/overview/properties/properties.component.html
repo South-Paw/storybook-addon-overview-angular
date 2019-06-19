@@ -1,6 +1,14 @@
-<div *ngFor="let prop of props" class="property">
+<div *ngFor="let prop of publicProps" class="property">
   <h4 class="title">
     <code class="type name">{{ prop.name }}</code>
+
+    <ng-container *ngIf="getSetterSignature(prop) as setSignature">
+      <code class="type signature">{{ setSignature }}</code>
+    </ng-container>
+
+    <ng-container *ngIf="getGetterSignature(prop) as getSignature">
+      <code class="type signature">{{ getSignature }}</code>
+    </ng-container>
 
     <ng-container *ngIf="prop.type" [ngSwitch]="prop.type.type">
       <code *ngSwitchCase="'reference'" class="type reference">{{ prop.type.name || prop.type.type }}</code>
@@ -12,10 +20,13 @@
     <code *ngIf="getIfPropRequired(prop)" class="type required">required</code>
   </h4>
 
-  <div *ngIf="prop.comment" class="description">
-    <markdown *ngIf="prop.comment.shortText">{{ prop.comment.shortText }}</markdown>
-    <markdown *ngIf="prop.comment.text">{{ prop.comment.text }}</markdown>
+  <div *ngIf="getComment(prop) as comment" class="description">
+    <markdown *ngIf="comment.shortText">{{ comment.shortText }}</markdown>
+    <markdown *ngIf="comment.text">{{ comment.text }}</markdown>
   </div>
 
-  <storybook-addon-overview-property-types *ngIf="getRenderableTypes(prop); let renderable" [types]="renderable"></storybook-addon-overview-property-types>
+  <storybook-addon-overview-property-types
+    *ngIf="getRenderableTypes(prop); let renderable"
+    [types]="renderable"
+  ></storybook-addon-overview-property-types>
 </div>

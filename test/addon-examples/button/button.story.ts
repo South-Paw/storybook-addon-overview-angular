@@ -38,6 +38,9 @@ stories.add(
       // showUsageSource: true,
       // showInputs: false,
       // showOutputs: false,
+      showMethods: true,
+      showAccessors: true,
+      showInternalProps: true,
 
       // turn on debug for this story
       isDebug: true,

@@ -8,38 +8,42 @@ const defaultConfig = {
 };
 
 // Reference: https://typedoc.org/api/enums/reflectionkind.html
-const IGNORED_TYPE_KINDS = [
-  128 // Class
-];
+const TYPEDOC_CLASS = 128;
+const TYPEDOC_PROPERTY = 1024;
+const TYPEDOC_METHOD = 2048;
+
+const IGNORED_TYPE_KINDS = [TYPEDOC_CLASS];
 
 const storyWithError = (story, errorMessage, errorObject) => {
   console.warn(`[Addon Overview Angular] ${errorMessage}`, errorObject);
 
   return {
     ...story,
+    // prettier-ignore
     template: `<storybook-addon-overview-error [error]="___addonOverviewError"></storybook-addon-overview-error>${story.template}`,
     props: { ___addonOverviewError: { message: errorMessage, object: errorObject }, ...story.props },
   };
-}
+};
 
-const getTags = tags => tags.map(tag => {
-  const formattedTag = tag.tag.split('_').join(' ');
+const getTags = tags =>
+  tags.map(tag => {
+    const formattedTag = tag.tag.split('_').join(' ');
 
-  if (tag.text.includes('<')) {
-    const split = tag.text.split('<').map(str => str.replace(/>/g, '').trim());
+    if (tag.text.includes('<')) {
+      const split = tag.text.split('<').map(str => str.replace(/>/g, '').trim());
+
+      return {
+        tag: formattedTag,
+        label: split[0],
+        href: split[1],
+      };
+    }
 
     return {
       tag: formattedTag,
-      label: split[0],
-      href: split[1],
+      label: tag.text,
     };
-  }
-
-  return {
-    tag: formattedTag,
-    label: tag.text,
-  };
-});
+  });
 
 const getInputs = componentDocChildren => {
   if (!componentDocChildren) {
@@ -59,10 +63,76 @@ const getOutputs = componentDocChildren => {
   if (!componentDocChildren) {
     return [];
   }
-
   return componentDocChildren.filter(child => {
     if (child.decorators) {
       return child.decorators.filter(decorator => decorator.name === 'Output').length;
+    }
+
+    return false;
+  });
+};
+
+const getMethods = componentDocChildren => {
+  if (!componentDocChildren) {
+    return [];
+  }
+  return componentDocChildren
+    .filter(child => {
+      if (child.kind) {
+        return child.kind === TYPEDOC_METHOD;
+      }
+      return false;
+    })
+    .map(child => {
+      return {
+        ...child,
+        type: child.signatures[0].type || { name: 'void' },
+      };
+    });
+};
+
+const getAccessors = componentDocChildren => {
+  if (!componentDocChildren) {
+    return [];
+  }
+
+  return componentDocChildren
+    .filter(child => {
+      if (child.getSignature) {
+        return child.getSignature.length > 0;
+      }
+
+      if (child.setSignature) {
+        return child.setSignature.length > 0;
+      }
+
+      return false;
+    })
+    .filter(child => {
+      if (child.decorators && child.decorators.length > 0) {
+        if (child.decorators.find(decorator => decorator.name === 'Input' || decorator.name === 'Output')) {
+          return false;
+        }
+      }
+
+      return true;
+    })
+    .map(child => {
+      return {
+        ...child,
+        type: child.getSignature ? child.getSignature[0].type : child.setSignature[0].type,
+      };
+    });
+};
+
+const getInternalProps = componentDocChildren => {
+  if (!componentDocChildren) {
+    return [];
+  }
+
+  return componentDocChildren.filter(child => {
+    if (child.kind && !child.decorators) {
+      return child.kind === TYPEDOC_PROPERTY;
     }
 
     return false;
@@ -100,7 +170,10 @@ export const withOverview = typedoc => (storyFn, params) => {
 
   // Warn if no typedoc was provided
   if (!typedoc) {
-    return storyWithError(story, `Decorator is enabled for the story '${params.kind} => ${params.name}', but no 'typedoc' parameter was provided.`);
+    return storyWithError(
+      story,
+      `Decorator is enabled for the story '${params.kind} => ${params.name}', but no 'typedoc' parameter was provided.`,
+    );
   }
 
   const {
@@ -116,6 +189,9 @@ export const withOverview = typedoc => (storyFn, params) => {
     showUsageSource = false,
     showInputs = true,
     showOutputs = true,
+    showMethods = false,
+    showAccessors = false,
+    showInternalProps = false,
 
     // Per story options
     title = null,
@@ -124,7 +200,7 @@ export const withOverview = typedoc => (storyFn, params) => {
     changelog = null,
   } = addonConfig;
 
-  // Properties that'll be passed to the OverviewComponent for rendering
+  // Properties that will be passed to the OverviewComponent for rendering
   const overviewProps = {
     isDebug,
     features: {
@@ -137,6 +213,9 @@ export const withOverview = typedoc => (storyFn, params) => {
       showUsageSource,
       showInputs,
       showOutputs,
+      showMethods,
+      showAccessors,
+      showInternalProps,
     },
     title,
     shortDescription: null,
@@ -147,6 +226,9 @@ export const withOverview = typedoc => (storyFn, params) => {
     inputs: [],
     outputs: [],
     exports: [],
+    methods: [],
+    accessors: [],
+    internalProps: [],
   };
 
   // Documentation for the exported module
@@ -183,12 +265,15 @@ export const withOverview = typedoc => (storyFn, params) => {
   overviewProps.inputs = getInputs(componentDoc.children);
   overviewProps.outputs = getOutputs(componentDoc.children);
   overviewProps.exports = getExports(typedoc);
+  overviewProps.methods = getMethods(componentDoc.children);
+  overviewProps.accessors = getAccessors(componentDoc.children);
+  overviewProps.internalProps = getInternalProps(componentDoc.children);
 
   return {
     ...story,
     template: `<storybook-addon-overview [config]="___addonOverview">${story.template}</storybook-addon-overview>`,
     props: { ___addonOverview: overviewProps, ...story.props },
   };
-}
+};
 
 export { OverviewModule };

@@ -131,7 +131,7 @@ Changelog uses `h3` headers (###) to deliminate between versions, it will always
 
 Example of use in story:
 
-```
+```js
 import changelog from './changelog.md';
 
 ...
@@ -162,7 +162,7 @@ This is generated from the first line of the component's documentation block.
 
 Whether to show the tags in the overview component.
 
-These are generated from the components documentation block and support links.
+These are generated from the components documentation block and support markdown.
 
 ```js
 /**
@@ -171,9 +171,9 @@ These are generated from the components documentation block and support links.
  * Long description about the component...
  *
  * @version 0.0.1
- * @author Some Cool Dude <http://example.com>
- * @link Design Spec <http://example.com>
- * @key_with_spaces Another Example <http://example.com>
+ * @string Example String
+ * @link [Design Spec](http://example.com)
+ * @key_with_spaces [Another Example](http://example.com)
  */
 @Component({
   ...
@@ -182,9 +182,9 @@ export class MyCoolComponent { ... }
 ```
 
 * `@version` will become `Version` and `0.0.1` will be it's value
-* `@author` will become `Author` and `Some Cool Dude` will be it's value
-* `@link` will become `Link` and `Design Spec <http://example.com>` will become an a tag with an href of `http://example.com` and value of `Design Spec`
-* `@key_with_spaces` will become `Key With Spaces` and `Another Example <http://example.com>` will become an a tag with an href of `http://example.com` and value of `Another Example`
+* `@string` will become `String` and `Example String` will be it's value
+* `@link` will become `Link` and `[Design Spec](http://example.com)` will become an a tag with an href of `http://example.com` and value of `Design Spec`
+* `@key_with_spaces` will become `Key With Spaces` and `[Another Example](http://example.com)` will become an a tag with an href of `http://example.com` and value of `Another Example`
 
 #### `showChangelog`: boolean = true
 
@@ -210,11 +210,23 @@ If the usage example's source code is open or closed when the story is viewed.
 
 #### `showInputs`: boolean = true
 
-Whether to render the inputs of the component
+Whether to render the `@Input()` members of the component.
 
 #### `showOutputs`: boolean = true
 
-Whether to render the outputs of the component
+Whether to render the `@Output()` members of the component.
+
+#### `showMethods`: boolean = false
+
+Whether to render the public methods of the component's class.
+
+#### `showAccessors`: boolean = false
+
+Whether to render the public `get/set` accessors of the component's class.
+
+#### `showInternalProps`: boolean = false
+
+Whether to render the public properties/members of the component's class.
 
 #### `isDebug`: boolean = false
 
