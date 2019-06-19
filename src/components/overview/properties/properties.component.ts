@@ -25,6 +25,45 @@ export class PropertiesComponent {
     return false;
   }
 
+  private renderParameterString = parameters =>
+    parameters
+      .map((param, i) => {
+        let str = '';
+        str += `${param.name}`;
+        str += param.type.name ? `: ${param.type.name}` : `: ${param.type.types.map(t => t.name).join(' | ')}`;
+        str += i < parameters.length - 1 ? `, ` : ``;
+        return str;
+      })
+      .join('');
+
+  public getSetterSignature(prop) {
+    if (prop.signatures && prop.signatures[0].parameters) {
+      return `(${this.renderParameterString(prop.signatures[0].parameters)})`;
+    }
+
+    if (prop.setSignature && prop.setSignature[0]) {
+      return `set(${this.renderParameterString(prop.setSignature[0].parameters)})`;
+    }
+  }
+
+  public getGetterSignature(prop) {
+    if (prop.decorators && prop.decorators.filter(decorator => decorator.name === 'Input').length === 1) {
+      return false;
+    }
+
+    if (prop.getSignature) {
+      return 'get()';
+    }
+
+    return false;
+  }
+
+  public getMethodComments(prop) {
+    if (prop.signatures && prop.signatures.length > 0 && prop.signatures[0].comment) {
+      return prop.signatures[0].comment;
+    }
+  }
+
   public getRenderableTypes(prop) {
     let propType = null;
 
@@ -74,32 +113,6 @@ export class PropertiesComponent {
         default:
           return;
       }
-    }
-  }
-
-  public getMethodSignature(prop) {
-    if (prop.signatures) {
-      if (prop.signatures[0].parameters) {
-        let template = `(`;
-
-        const parameters = prop.signatures[0].parameters;
-
-        parameters.forEach((param, i: number) => {
-          template += `${param.name}`;
-          template += param.type.name ? `: ${param.type.name}` : `: ${param.type.types.map(t => t.name).join(' | ')}`;
-          template += i < parameters.length - 1 ? `, ` : ``;
-        });
-
-        template += `)`;
-
-        return template;
-      }
-    }
-  }
-
-  public getMethodComments(prop) {
-    if (prop.signatures && prop.signatures.length > 0 && prop.signatures[0].comment) {
-      return prop.signatures[0].comment;
     }
   }
 }

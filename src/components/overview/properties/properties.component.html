@@ -2,8 +2,12 @@
   <h4 class="title">
     <code class="type name">{{ prop.name }}</code>
 
-    <ng-container *ngIf="getMethodSignature(prop) as signature">
-      <code class="type signature">{{ signature }}</code>
+    <ng-container *ngIf="getGetterSignature(prop) as getSignature">
+      <code class="type signature">{{ getSignature }}</code>
+    </ng-container>
+
+    <ng-container *ngIf="getSetterSignature(prop) as setSignature">
+      <code class="type signature">{{ setSignature }}</code>
     </ng-container>
 
     <ng-container *ngIf="prop.type" [ngSwitch]="prop.type.type">
