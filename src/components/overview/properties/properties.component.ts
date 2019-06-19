@@ -80,13 +80,13 @@ export class PropertiesComponent {
   public getMethodSignature(prop) {
     if (prop.signatures) {
       if (prop.signatures[0].parameters) {
-        let template = `function(`;
+        let template = `(`;
 
         const parameters = prop.signatures[0].parameters;
 
         parameters.forEach((param, i: number) => {
           template += `${param.name}`;
-          template += param.type.name ? `:${param.type.name}` : `: ${param.type.types.map(t => t.name).join(' | ')}`;
+          template += param.type.name ? `: ${param.type.name}` : `: ${param.type.types.map(t => t.name).join(' | ')}`;
           template += i < parameters.length - 1 ? `, ` : ``;
         });
 
@@ -94,9 +94,12 @@ export class PropertiesComponent {
 
         return template;
       }
-    } else if (prop.getSignature) {
-      // TOOD
-      // console.log('prop.setSignature', prop);
+    }
+  }
+
+  public getMethodComments(prop) {
+    if (prop.signatures && prop.signatures.length > 0 && prop.signatures[0].comment) {
+      return prop.signatures[0].comment;
     }
   }
 }

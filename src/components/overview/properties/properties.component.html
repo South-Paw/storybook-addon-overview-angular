@@ -2,8 +2,8 @@
   <h4 class="title">
     <code class="type name">{{ prop.name }}</code>
 
-    <ng-container *ngIf="getMethodSignature(prop)">
-      <code class="type signature">{{ getMethodSignature(prop) }}</code>
+    <ng-container *ngIf="getMethodSignature(prop) as signature">
+      <code class="type signature">{{ signature }}</code>
     </ng-container>
 
     <ng-container *ngIf="prop.type" [ngSwitch]="prop.type.type">
@@ -15,6 +15,11 @@
 
     <code *ngIf="getIfPropRequired(prop)" class="type required">required</code>
   </h4>
+
+  <div *ngIf="getMethodComments(prop) as comment" class="description">
+    <markdown *ngIf="comment.shortText">{{ comment.shortText }}</markdown>
+    <markdown *ngIf="comment.text">{{ comment.text }}</markdown>
+  </div>
 
   <div *ngIf="prop.comment" class="description">
     <markdown *ngIf="prop.comment.shortText">{{ prop.comment.shortText }}</markdown>

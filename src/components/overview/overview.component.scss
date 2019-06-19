@@ -59,7 +59,9 @@
         }
 
         .tag-label {
-          width: 8rem;
+          &::ng-deep * {
+            margin: 0;
+          }
         }
       }
     }

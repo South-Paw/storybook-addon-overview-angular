@@ -8,8 +8,12 @@ const defaultConfig = {
 };
 
 // Reference: https://typedoc.org/api/enums/reflectionkind.html
+const TYPEDOC_CLASS = 128;
+const TYPEDOC_PROPERTY = 1024;
+const TYPEDOC_METHOD = 2048;
+
 const IGNORED_TYPE_KINDS = [
-  128, // Class
+  TYPEDOC_CLASS,
 ];
 
 const storyWithError = (story, errorMessage, errorObject) => {
@@ -77,7 +81,7 @@ const getMethods = componentDocChildren => {
   return componentDocChildren
     .filter(child => {
       if (child.kind) {
-        return child.kind === 2048; // or `kindString` === 'Method' // TODO: use enum
+        return child.kind === TYPEDOC_METHOD;
       }
       return false;
     })
@@ -99,10 +103,22 @@ const getAccessors = componentDocChildren => {
     .filter(child => {
       if (child.getSignature) {
         return child.getSignature.length > 0;
-      } else if (child.setSignature) {
+      }
+
+      if (child.setSignature) {
         return child.setSignature.length > 0;
       }
+
       return false;
+    })
+    .filter(child => {
+      if (child.decorators && child.decorators.length > 0) {
+        if (child.decorators.find(decorator => decorator.name === 'Input' || decorator.name === 'Output')) {
+          return false;
+        }
+      }
+
+      return true;
     })
     .map(child => {
       return {
@@ -119,7 +135,7 @@ const getInternalProps = componentDocChildren => {
 
   return componentDocChildren.filter(child => {
     if (child.kind && !child.decorators) {
-      return child.kind === 1024; // TODO use enum
+      return child.kind === TYPEDOC_PROPERTY;
     }
 
     return false;
