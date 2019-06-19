@@ -12,9 +12,7 @@ const TYPEDOC_CLASS = 128;
 const TYPEDOC_PROPERTY = 1024;
 const TYPEDOC_METHOD = 2048;
 
-const IGNORED_TYPE_KINDS = [
-  TYPEDOC_CLASS,
-];
+const IGNORED_TYPE_KINDS = [TYPEDOC_CLASS];
 
 const storyWithError = (story, errorMessage, errorObject) => {
   console.warn(`[Addon Overview Angular] ${errorMessage}`, errorObject);
