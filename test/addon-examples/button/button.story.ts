@@ -3,7 +3,7 @@ import { storiesOf, moduleMetadata } from '@storybook/angular';
 import { ButtonModule } from './index';
 import changelog from './changelog.md';
 
-const stories = storiesOf('Component Examples|Button', module);
+const stories = storiesOf('Example|Component', module);
 
 stories.addDecorator(moduleMetadata({ imports: [ButtonModule] }));
 
@@ -22,7 +22,7 @@ stories.add(
 
       // required
       title: 'Button',
-      filename: 'button/button.component',
+      filename: 'button.component',
       exportClass: 'ButtonComponent',
 
       // optional

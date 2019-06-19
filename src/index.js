@@ -29,16 +29,6 @@ const getTags = tags =>
   tags.map(tag => {
     const formattedTag = tag.tag.split('_').join(' ');
 
-    if (tag.text.includes('<')) {
-      const split = tag.text.split('<').map(str => str.replace(/>/g, '').trim());
-
-      return {
-        tag: formattedTag,
-        label: split[0],
-        href: split[1],
-      };
-    }
-
     return {
       tag: formattedTag,
       label: tag.text,

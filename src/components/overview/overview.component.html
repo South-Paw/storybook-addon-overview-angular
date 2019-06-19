@@ -7,10 +7,7 @@
   <ul *ngIf="renderTags" class="tags">
     <li *ngFor="let tag of config.tags">
       <div class="tag-name">{{ tag.tag }}</div>
-      <div [ngSwitch]="!!tag.href" class="tag-label">
-        <a *ngSwitchCase="true" [href]="tag.href" target="_blank">{{ tag.label }}</a>
-        <span *ngSwitchDefault>{{ tag.label }}</span>
-      </div>
+      <markdown class="tag-label">{{ tag.label }}</markdown>
     </li>
   </ul>
 
@@ -51,7 +48,7 @@
     </ng-container>
 
     <ng-container *ngIf="!showInputs && !showOutputs">
-      <p>This component doesn't have any inputs or outputs 😥</p>
+      <p>This component doesn't have any inputs or outputs.</p>
     </ng-container>
   </ng-container>
 
@@ -83,7 +80,7 @@
     </ng-container>
 
     <ng-container *ngIf="!showMethods && !showAccessors && !showInternalProps">
-      <p>This component doesn't have any properties to show 😥</p>
+      <p>This component doesn't have any properties to show.</p>
     </ng-container>
   </ng-container>
 </div>

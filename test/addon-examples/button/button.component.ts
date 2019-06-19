@@ -23,9 +23,10 @@ export interface ISomeInterface {
  *
  * <abbr title="Hypertext Markup Language">HTML</abbr> tags work just as they would in markup.
  *
- * @version 0.0.1
- * @author South Paw <http://southpaw.co.nz>
- * @link Design System <https://atlaskit.atlassian.com/packages/core/button>
+ * @string Hello world
+ * @link [Example](http://example.com)
+ * @code `ThingThing`
+ * @html <span class="badge">aaa</span>
  */
 @Component({
   selector: 'my-button',
