@@ -38,7 +38,9 @@ export class PropertiesComponent {
       .map((param, i) => {
         let str = '';
         str += `${param.name}`;
-        str += param.type.name ? `: ${param.type.name}` : `: ${param.type.types.map(t => t.name).join(' | ')}`;
+        str += param.type.name
+          ? `: ${param.type.name}`
+          : `: ${param.type.type ? param.type.type : param.type.types.map(t => t.name).join(' | ')}`;
         str += i < parameters.length - 1 ? `, ` : ``;
         return str;
       })

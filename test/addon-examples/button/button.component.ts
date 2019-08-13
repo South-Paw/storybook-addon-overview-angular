@@ -33,7 +33,7 @@ export interface ISomeInterface {
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
-export class ButtonComponent {
+export class ButtonComponent<T> {
   /** Appearance style of the button. */
   @Input()
   public appearance: 'primary' | 'secondary' = 'secondary';
@@ -53,6 +53,14 @@ export class ButtonComponent {
   /** Size of the button. */
   @Input()
   public size: ButtonSize = 'medium';
+
+  /**
+   * Some input you shouldn't use.
+   *
+   * @deprecated
+   */
+  @Input()
+  public somethingYouShouldNotUse: boolean = false;
 
   /**
    * Handler to be called when the button is clicked by a user.
@@ -150,4 +158,14 @@ export class ButtonComponent {
   private privateMethod(password: string) {
     console.log(password);
   }
+
+  @Input()
+  public showKey: keyof T;
+
+  @Input()
+  public set item(item: T[]) {
+    this.processedItem = item;
+  }
+
+  public processedItem: T[];
 }
