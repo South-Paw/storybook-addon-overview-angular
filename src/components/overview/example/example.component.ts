@@ -8,10 +8,10 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 })
 export class ExampleComponent {
   @Input()
-  public title;
+  public title: string;
 
   @Input()
-  public source;
+  public source: string;
 
   @Input()
   public showSource = false;

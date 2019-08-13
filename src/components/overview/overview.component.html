@@ -1,11 +1,11 @@
 <div class="container">
-  <h1 *ngIf="renderTitle" class="title">{{ config.title }}</h1>
+  <h1 *ngIf="renderTitle" class="title">{{ config.overview.title }}</h1>
   <p *ngIf="renderShortDescription" class="short-description">
-    {{ config.shortDescription }}
+    {{ config.overview.shortDescription }}
   </p>
 
   <ul *ngIf="renderTags" class="tags">
-    <li *ngFor="let tag of config.tags">
+    <li *ngFor="let tag of config.overview.tags">
       <div class="tag-name">{{ tag.tag }}</div>
       <markdown class="tag-label">{{ tag.label }}</markdown>
     </li>
@@ -14,16 +14,20 @@
   <hr *ngIf="renderTitle || renderShortDescription || renderTags" />
 
   <ng-container *ngIf="renderChangelog">
-    <storybook-addon-overview-changelog [changelog]="config.changelog"></storybook-addon-overview-changelog>
+    <storybook-addon-overview-changelog [changelog]="config.overview.changelog"></storybook-addon-overview-changelog>
     <hr />
   </ng-container>
 
   <ng-container *ngIf="showLongDescription">
-    <markdown>{{ config.longDescription }}</markdown>
+    <markdown>{{ config.overview.longDescription }}</markdown>
   </ng-container>
 
   <ng-container *ngIf="showUsage">
-    <storybook-addon-overview-example [title]="'Example'" [source]="config.source" [showSource]="showUsageSource">
+    <storybook-addon-overview-example
+      [title]="'Example'"
+      [source]="config.overview.source"
+      [showSource]="showUsageSource"
+    >
       <ng-content></ng-content>
     </storybook-addon-overview-example>
   </ng-container>
@@ -34,16 +38,16 @@
     <ng-container *ngIf="showInputs">
       <h3>Inputs</h3>
       <storybook-addon-overview-properties
-        [props]="config.inputs"
-        [exported]="config.exports"
+        [props]="config.overview.inputs"
+        [exported]="config.overview.exports"
       ></storybook-addon-overview-properties>
     </ng-container>
 
     <ng-container *ngIf="showOutputs">
       <h3>Outputs</h3>
       <storybook-addon-overview-properties
-        [props]="config.outputs"
-        [exported]="config.exports"
+        [props]="config.overview.outputs"
+        [exported]="config.overview.exports"
       ></storybook-addon-overview-properties>
     </ng-container>
 
@@ -58,24 +62,24 @@
     <ng-container *ngIf="showMethods">
       <h3>Methods</h3>
       <storybook-addon-overview-properties
-        [props]="config.methods"
-        [exported]="config.exports"
+        [props]="config.overview.methods"
+        [exported]="config.overview.exports"
       ></storybook-addon-overview-properties>
     </ng-container>
 
     <ng-container *ngIf="showAccessors">
       <h3>Accessors</h3>
       <storybook-addon-overview-properties
-        [props]="config.accessors"
-        [exported]="config.exports"
+        [props]="config.overview.accessors"
+        [exported]="config.overview.exports"
       ></storybook-addon-overview-properties>
     </ng-container>
 
     <ng-container *ngIf="showInternalProps">
       <h3>Internal</h3>
       <storybook-addon-overview-properties
-        [props]="config.internalProps"
-        [exported]="config.exports"
+        [props]="config.overview.internalProps"
+        [exported]="config.overview.exports"
       ></storybook-addon-overview-properties>
     </ng-container>
 
