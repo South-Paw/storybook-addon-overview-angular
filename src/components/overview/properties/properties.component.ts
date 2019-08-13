@@ -17,9 +17,17 @@ export class PropertiesComponent {
     return this.props.filter(prop => prop.flags && !(prop.flags.isProtected || prop.flags.isPrivate) === true);
   }
 
+  public getIfDeprecated(prop) {
+    if (prop.comment && prop.comment.tags && prop.comment.tags.length > 0) {
+      return !!prop.comment.tags.find(({ tag }) => tag === 'deprecated');
+    }
+
+    return false;
+  }
+
   public getIfPropRequired(prop) {
     if (prop.comment && prop.comment.tags && prop.comment.tags.length > 0) {
-      return !!prop.comment.tags.filter(({ tag }) => tag === 'required')[0];
+      return !!prop.comment.tags.find(({ tag }) => tag === 'required');
     }
 
     return false;

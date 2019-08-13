@@ -4,7 +4,7 @@
     margin-bottom: 0.5rem;
   }
 
-  code {  
+  code {
     &.param {
       margin: 0px 0.2em;
       background-color: rgb(234, 243, 242);
@@ -14,7 +14,7 @@
       line-height: 1.4;
       border-radius: 3px;
     }
-    
+
     &.type {
       padding: 0px 0.2em;
       background-color: rgb(244, 245, 247);
@@ -24,13 +24,13 @@
       font-size: 0.9rem;
       font-weight: normal;
       line-height: 1.4;
-  
+
       &.name {
         margin-right: 0.6rem;
         background-color: rgb(222, 235, 255);
         color: rgb(7, 71, 166);
       }
-  
+
       &.reference {
         background-color: rgb(234, 230, 255);
         color: rgb(64, 50, 148);
@@ -41,14 +41,20 @@
         background-color: rgb(234, 243, 242);
         color: rgb(94, 132, 129);
       }
-  
+
       &.default {
         background-color: transparent;
         white-space: pre;
       }
-  
+
       &.required {
         margin-left: 0.6rem;
+        background-color: transparent;
+        color: rgb(191, 38, 0);
+      }
+
+      &.deprecated {
+        margin-right: 0.6rem;
         background-color: transparent;
         color: rgb(191, 38, 0);
       }
@@ -57,6 +63,10 @@
 
   .property {
     margin: 0 0 2rem 0;
+
+    &.deprecated * {
+      opacity: 0.6;
+    }
 
     .title {
       margin-bottom: 0.5rem;

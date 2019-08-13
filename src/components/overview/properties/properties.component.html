@@ -1,5 +1,7 @@
-<div *ngFor="let prop of publicProps" class="property">
+<div *ngFor="let prop of publicProps" class="property" [ngClass]="{ deprecated: getIfDeprecated(prop) }">
   <h4 class="title">
+    <code *ngIf="getIfDeprecated(prop)" class="type deprecated">deprecated</code>
+
     <code class="type name">{{ prop.name }}</code>
 
     <ng-container *ngIf="getSetterSignature(prop) as setSignature">

@@ -24,7 +24,7 @@ Feel free to ask me questions or make suggestions if there's something missing f
 * Versioned component changelog support.
 * Live component example that can be extended with [addon-knobs](https://github.com/storybooks/storybook/tree/next/addons/knobs).
 * Component properties (`@Input` and `@Output` documentation).
-* Support for required properties and per-prop documentation.
+* Support for required and deprecated properties and per-prop documentation.
 * All of the above, generated from your code with a simple story required to glue it together.
 
 See the [live demo](https://storybook-addon-overview-angular.netlify.com/) for some examples of documented components and check the options out down below 👇
@@ -256,4 +256,3 @@ yarn typedoc
 
 * `src/` contains all the addon's code and rendering components.
 * `test/` contains sample storybook and components for the generated live site.
-
