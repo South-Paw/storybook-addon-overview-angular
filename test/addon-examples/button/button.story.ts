@@ -1,6 +1,6 @@
 import { storiesOf, moduleMetadata } from '@storybook/angular';
 
-import { OverviewConfig } from '../../../src/types';
+import { OverviewConfig } from '../../../src';
 
 import { ButtonModule } from './index';
 import changelog from './changelog.md';
