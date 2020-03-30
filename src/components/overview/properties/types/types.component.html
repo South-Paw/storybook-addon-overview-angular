@@ -9,7 +9,7 @@
     <ng-container *ngFor="let type of types.types">
       <div [ngSwitch]="type.type">
         <code *ngSwitchCase="'stringLiteral'" class="type string">"{{ type.value }}"</code>
-        <code *ngSwitchCase="'reference'" class="type reference">{{ type.type }}</code>
+        <code *ngSwitchCase="'reference'" class="type reference">{{ type.name || type.type }}</code>
         <code *ngSwitchDefault class="type">{{ type.value || type.name }}</code>,
       </div>
     </ng-container>

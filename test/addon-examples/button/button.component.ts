@@ -48,7 +48,7 @@ export class ButtonComponent<T> {
    * @required
    */
   @Input()
-  public label: string;
+  public label: string | Date;
 
   /** Size of the button. */
   @Input()
